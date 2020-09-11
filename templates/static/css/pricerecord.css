@@ -1,0 +1,10 @@
+.page-item{
+    margin-top: 7px;
+    font-size: small;
+}
+div.selecttable{
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    z-index: 9999;
+}

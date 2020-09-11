@@ -1,0 +1,74 @@
+body{
+	font-family: '微軟正黑體';
+}
+.bg-owncolor{
+    background-color: #F8B064;
+}
+.bd-ownborder{
+    border:1px solid #F8B064;
+}
+div.navbarcss{
+    background-color: #F8B064;
+    height: 80px;
+}
+div.block_1{
+    background-color: white;
+    height: 617px;
+}
+div.block_2{
+    background-color: white;
+    height: 537px;
+}
+div.blocktitle{
+    font-size: xx-large;
+    font-weight: bolder;
+    text-align: center;
+    color: #F8B064;
+}
+div.line{
+    background-color:#F8B064;
+	height: 5px;
+}
+div.charttitle{
+    text-align: center;
+    font-size: large;
+    border-bottom:2px solid #F8B064;
+}
+div.listtitle{
+    text-align: center;
+    font-size: large;
+    background-color: white;
+    border-top:5px solid #F8B064;
+    border-bottom:2px solid #F8B064;
+}
+.scrollspy-example{
+    overflow: auto;
+}
+div.searchblock::-webkit-scrollbar-track, html::-webkit-scrollbar-track, div.scrollspy-example::-webkit-scrollbar-track{
+	background-color: #EEEEEE;
+}
+div.searchblock::-webkit-scrollbar-thumb, html::-webkit-scrollbar-thumb, div.scrollspy-example::-webkit-scrollbar-thumb{	
+	background-color: #DDDDDD;
+}
+div.searchblock::-webkit-scrollbar, html::-webkit-scrollbar, div.scrollspy-example::-webkit-scrollbar{
+	width: 12px;
+	background-color: #EEEEEE;
+}
+div:focus, button:focus{
+	outline: 0;
+}
+.table td{
+    vertical-align: middle;
+    padding: 0.8em 10px;
+}
+.table th{
+    vertical-align: middle;
+    padding: 0.8em 10px; 
+}
+table.dataTable thead {
+    background-color:#F8B064;
+}
+.pagination .page-item.active .page-link {
+    background-color: #F8B064;
+    border: 1px solid #F8B064;
+}

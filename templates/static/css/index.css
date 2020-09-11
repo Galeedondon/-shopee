@@ -1,0 +1,18 @@
+body{
+    text-align: center;
+    font-family: '微軟正黑體';
+}
+button.loginbtn{
+    width: 70px;
+	background-color: #F8B064;
+	font-weight: bold;
+}
+a.loginbtn{
+    color: white;
+	font-weight: bold;
+}
+a.loginbtn:hover{
+    color: white;
+    font-weight: bold;
+    text-overflow: none;
+}
