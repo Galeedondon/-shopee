@@ -1,0 +1,16 @@
+div.block{
+    background-color: white;
+    height: 617px;
+}
+div.block2{
+    border-top: 5px solid #F8B064;
+}
+
+caption{
+    caption-side: top;
+    color: black;
+    font-size: large;
+}
+td.field{
+    text-align: right;
+}

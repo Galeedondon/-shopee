@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登入</title>
+    <link rel="icon" href="{% static 'images/titleicon.png' %}" type="image/x-icon"/>
+    <link rel="stylesheet" href="{%static 'css/index.css'%}">
+
+    <!-- Bootstrap CSS CDN -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    
+</head>
+<body>
+    <div id="content" class="container">
+        <div class="titleimg p-2 mt-4 m-2 d-flex justify-content-center">
+            <img src="{% static 'images/titleicon.png' %}" style="width: 100px;">
+        </div>
+        <div class="title p-2 d-flex justify-content-center">
+            ShopQuick蝦款—網拍智慧定價小幫手
+        </div>
+        <div class="login p-2 d-flex justify-content-center">
+            <button class="btn loginbtn"><a class="loginbtn" href="\login">登入</a></button>
+        </div>
+    </div>
+</body>
+</html>

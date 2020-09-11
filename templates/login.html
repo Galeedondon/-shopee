@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登入</title>
+    <link rel="icon" href="{% static 'images/titleicon.png' %}" type="image/x-icon"/>
+    <link rel="stylesheet" href="{%static 'css/login.css'%}">
+
+    <!-- Bootstrap CSS CDN -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    
+</head>
+<body style="font-family: '微軟正黑體';
+background-color: white;">
+    <div class="navbarcss p-2 mb-3">
+        <div class="container d-flex">
+            <img src="{% static 'images/LOGO.png'%}" alt="" style="height: 60px;">    
+        </div>
+    </div>
+    <div id="content" class="container d-flex justify-content-around">
+        <div class="block1 m-2 mt-4 p-5">
+            <img src="{% static 'images/LOGO2.png'%}" alt="" style="width: 200px;">
+            <div class="block1-1 mt-4">
+                網拍智慧定價小幫手<br>
+                賣家問題交給我
+            </div>
+        </div>
+        <div class="block2 mt-5">
+            <div id="login" class="login_content p-5">
+                <div class="d-flex justify-content-between">
+                    <h3>登入</h3>
+                    <div class="pt-2">還沒有帳號嗎？<a href="\register">註冊</a></div>
+                </div>
+                <form class="login mt-3" action="/login_login/" method="post">
+                    {% csrf_token %}
+                    信箱<br>
+                    <input class="textbox" type="email" name="email" placeholder="@gmail.com" required><br>
+                    密碼<br>
+                    <input class="textbox" name="password" type="password" placeholder="請輸入8~16位" required><br>
+                    <input type="submit" class="login mt-4 p-2" value="登入">
+                </form>
+                <div class="d-flex justify-content-between"><div class="align-self-center" style="width: 45%;height:1px;background: black"></div><div class="pt-4 pb-4" style="color:black">or</div><div class="align-self-center" style="width: 45%;height:1px;background: black"></div></div>
+                <button class="facebookbtn">facebook帳號登入</button>
+            </div>
+        </div>
+    </div>
+
+    {% if messages %}
+    <script>
+        {% for msg in messages %}
+            alert('{{ msg.message }}');
+        {% endfor %}
+    </script>
+    {% endif %}
+
+
+</body>
+</html>
