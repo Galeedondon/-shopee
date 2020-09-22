@@ -11,57 +11,157 @@
 		<title>蝦款-熱門關鍵字</title>
         <link rel="icon" href="{% static 'images/titleicon.png' %}" type="image/x-icon"/>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+        <!--JQuery-->
+        <script src="{% static 'jquery-3.5.1.min.js'%}"></script>
 
-
-        <!--Sweetalert2 CSS-->
-        <link rel="stylesheet" href="{% static 'sweetalert2/dist/sweetalert2.min.css'%}">
 		<!-- Bootstrap CSS-->
         <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css'%}">
         <!--DataTable CSS-->
         <link rel="stylesheet" type="text/css" href="{% static 'datatables/css/datatables.min.css'%}"/>
+        <!--Sweetalert2 CSS-->
+        <link rel="stylesheet" href="{% static 'sweetalert2/dist/sweetalert2.min.css'%}">
         <!-- Our Custom CSS -->
-        <link rel="stylesheet" href="{% static 'css/rankcharts.css' %}">
-        <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
-        <link rel="stylesheet" href="{% static 'css/search.css' %}">
         <link rel="stylesheet" href="{% static 'css/all.css' %}" type="text/css">
+        <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
         <link rel="stylesheet" href="{% static 'css/keywords.css' %}" type="text/css">
-
 
 		<!-- Font Awesome JS -->
 		<script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
 		<script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+        <style>
+            #chartdiv {
+              width: 100%;
+              height: 100%;
+            }
+            </style>
+            
+            <!-- Resources -->
+            <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+            <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+            <script src="https://cdn.amcharts.com/lib/4/plugins/wordCloud.js"></script>
+            <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+            
+            <!-- Chart code -->
+            <script>
+            am4core.ready(function() {
+            
+            // Themes begin
+            am4core.useTheme(am4themes_animated);
+            // Themes end
+            
+            var chart = am4core.create("chartdiv", am4plugins_wordCloud.WordCloud);
+            chart.fontFamily = "微軟正黑體";
+            chart.paddingRight = 0;
+            chart.paddingLeft = 0;
+            chart.paddingTop = -50;
+            chart.minHeight = 650;
+            var series = chart.series.push(new am4plugins_wordCloud.WordCloudSeries());
+            series.randomness = 0.1;
+            series.rotationThreshold = 0.5;
+            
+            series.data = [ {
+                "tag": "藍芽耳機",
+                "count": "44101"
+            }, {
+                "tag": "11手機殼",
+                "count": "23514"
+            }, {
+                "tag": "聖誕禮物",
+                "count": "8408"
+            }, {
+                "tag": "Adidas外套",
+                "count": "14628"
+            }, {
+                "tag": "Switch遊戲片",
+                "count": "44101"
+            }, {
+                "tag": "小米行動電源",
+                "count": "9905"
+            }, {
+                "tag": "長版外套",
+                "count": "12614"
+            }, {
+                "tag": "小米耳機",
+                "count": "21415"
+            }, {
+                "tag": "室內拖鞋",
+                "count": "7741"
+            }, {
+                "tag": "短版上衣",
+                "count": "9841"
+            }, {
+                "tag": "Apple 11",
+                "count": "6472"
+            }, {
+                "tag": "防摔手機殼",
+                "count": "28691"
+            }, {
+                "tag": "外套女",
+                "count": "31584"
+            }, {
+                "tag": "NIKE外套",
+                "count": "15234"
+            }, {
+                "tag": "針織上衣",
+                "count": "4213"
+            }, {
+                "tag": "外套男",
+                "count": "35791"
+            }, {
+                "tag": "羊羔外套",
+                "count": "8491"
+            }, {
+                "tag": "Apple 64gb",
+                "count": "7463"
+            } ];
+            series.minFontSize = 20;
+            series.maxFontSize = 100;
+            series.dataFields.word = "tag";
+            series.dataFields.value = "count";
+            series.interpolationDuration = 150;
+            series.rangeChangeDuration = 0;
+            series.heatRules.push({
+             "target": series.labels.template,
+             "property": "fill",
+             "min": am4core.color("#fcbe32"),
+             "max": am4core.color("#ff5f2e"),
+             "dataField": "value"
+            });
+            
+            series.labels.template.url = "https://https://shopee.tw/search?keyword={word}";
+            series.labels.template.urlTarget = "_blank";
+            series.labels.template.tooltipText = "{word}: {value}";
+            
+            var hoverState = series.labels.template.states.create("hover");
+            hoverState.properties.fill = am4core.color("#FF0000");        
+            }); // end am4core.ready()
+            </script>
     </head>
-	<body style="background-image: url('{%static 'images/背景.jpg'%}');">
-        <div id="content2">
-            <button type="button" id="sidebarCollapse" class="btn btn-info">
-                <i class="fas fa-align-left"></i>
-            </button>
-        </div>
+	<body>
 		<div class="wrapper">
             <!-- Sidebar -->
             <nav id="sidebar">
                 <div class="sidebar-header">
                     <div class="logo" style="background-image: url('{% static 'images/logo.png' %}')"></div>
                 </div>
-                <div class="border-top"></div>
                 <ul class="list-unstyled components">
-                    <li class="active">
+                    <li class="pagelist">
                         <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><img class="icon" src="{% static 'images/rank_icon.png' %}">排行</a>
                         <ul class="list-unstyled collapse show" id="homeSubmenu1">
                             <li>
                                 <a href="\hotsupplies"><img class="icon" src="{% static 'images/hotpdt_icon.png' %}">熱門商品</a>
                             </li>
                             <li>
-                                <a href="\keywords"><img class="icon" src="{% static 'images/hotsearch_icon.png' %}">熱門關鍵字</a>
+                                <a href="\keywords" class="visit"><img class="icon" src="{% static 'images/hotsearch_icon.png' %}">熱門關鍵字</a>
                             </li>
                         </ul>
                     </li>
-                    <li class="active">
+                    <li class="pagelist">
                         <a href="#homeSubmenu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle collapsed"><img class="icon" src="{% static 'images/shop.png' %}">組合專區</a>
                         <ul class="list-unstyled collapse" id="homeSubmenu2">
                             <li class="d-flex">
                                 <div class="form-control w-75" placeholder="空白簽名球" style="border-radius: 0px;">空白簽名球</div>
-                                <button class="btn p-1 pl-2 pr-2" onclick="opnsearch()" style="background-color: #EEEEEE;border-radius:0px;">搜尋</button>
+                                <button class="w-25 btn p-1 pl-2 pr-2" onclick="opnsearch()" style="background-color: #EEEEEE;border-radius:0px;">搜尋</button>
                             </li>
                             <li>
                                 <a href="\pricerange"><img class="icon" src="{% static 'images/sales.png'%}">價錢區間</a>
@@ -74,7 +174,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="active">
+                    <li class="pagelist">
                         <a href="#homeSubmenu3" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle collapsed"><img class="icon" src="{% static 'images//user.png' %}">個人專頁</a>
                         <ul class="list-unstyled collapse" id="homeSubmenu3">
                             <li>
@@ -90,163 +190,50 @@
                     </li>
                 </ul>
             </nav>
-        </div>
-        <!-- 搜尋視窗 -->
-        <div id="light" class="white_content">
-            <button class="clssearch" onclick="clssearch()">
-                <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-x-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                    <path fill-rule="evenodd" d="M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z"/>
-                    <path fill-rule="evenodd" d="M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z"/>
-                </svg>
-            </button>
-            <div class="row h-100">
-                <div class="col-6 d-flex h-100 flex-column">
-                    <div class="d-flex flex-wrap form-checkblock mb-2" id="form1">
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" id="check1" value="女生衣著"/>女生衣著</div>
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="女生包包/精品"/>女生包包/精品</div>
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="女生配件"/>女生配件</div>  
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="男生衣著"/>男生衣著</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="男生包包與配件"/>男生包包與配件</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="男鞋"/>男鞋</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="3C與筆電"/>3C與筆電</div>
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="手機平板與周邊"/>手機平板與周邊</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="居家生活"/>居家生活</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="家電影音"/>家電影音</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="遊戲王"/>遊戲王</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="娛樂、收藏"/>娛樂、收藏</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="戶外與運動用品"/>戶外與運動用品</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="服務、票券"/>服務、票券</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="美妝保健"/>美妝保健</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="嬰幼童與母親"/>嬰幼童與母親</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="美食、伴手禮"/>美食、伴手禮</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="寵物"/>寵物</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="汽機車零件百貨"/>汽機車零件百貨</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="書籍及文創商品"/>書籍及文創商品</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="其他類別"/>其他類別</div> 
-                    </div>
-                    <div class="d-flex flex-wrap form-checkblock mb-2" id="form2" style="visibility: hidden;">
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" id="check2" value="女生衣著"/>女生衣著</div>
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="女生包包/精品"/>女生包包/精品</div>
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="女生配件"/>女生配件</div>  
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="男生衣著"/>男生衣著</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="男生包包與配件"/>男生包包與配件</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="男鞋"/>男鞋</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="3C與筆電"/>3C與筆電</div>
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="手機平板與周邊"/>手機平板與周邊</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="居家生活"/>居家生活</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="家電影音"/>家電影音</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="遊戲王"/>遊戲王</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="娛樂、收藏"/>娛樂、收藏</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="戶外與運動用品"/>戶外與運動用品</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="服務、票券"/>服務、票券</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="美妝保健"/>美妝保健</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="嬰幼童與母親"/>嬰幼童與母親</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="美食、伴手禮"/>美食、伴手禮</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="寵物"/>寵物</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="汽機車零件百貨"/>汽機車零件百貨</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="書籍及文創商品"/>書籍及文創商品</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="其他類別"/>其他類別</div> 
-                    </div>
-                    <div class="d-flex flex-wrap form-checkblock " id="form3" style="visibility: hidden;">
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" id="check3" value="女生衣著"/>女生衣著</div>
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="女生包包/精品"/>女生包包/精品</div>
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="女生配件"/>女生配件</div>  
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="男生衣著"/>男生衣著</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="男生包包與配件"/>男生包包與配件</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="男鞋"/>男鞋</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="3C與筆電"/>3C與筆電</div>
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="手機平板與周邊"/>手機平板與周邊</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="居家生活"/>居家生活</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="家電影音"/>家電影音</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="遊戲王"/>遊戲王</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="娛樂、收藏"/>娛樂、收藏</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="戶外與運動用品"/>戶外與運動用品</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="服務、票券"/>服務、票券</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="美妝保健"/>美妝保健</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="嬰幼童與母親"/>嬰幼童與母親</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="美食、伴手禮"/>美食、伴手禮</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="寵物"/>寵物</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="汽機車零件百貨"/>汽機車零件百貨</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="書籍及文創商品"/>書籍及文創商品</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="其他類別"/>其他類別</div> 
-                    </div>
-                </div>
-                <div class="col-6 h-100">
-                    <div class="p-2" style="background-color: #EEEEEE;">
-                        <div class="d-flex">
-                            <input type="text" class="form-control"/>
-                            <input type="submit" class="form-control w-25" onclick="search()" style="background-color: #F8B064;"/>
+            <!-- 搜尋視窗 -->
+            {% include 'search.html'%} 
+            <!---->
+            <div id="content" class="container-fluid">
+                <nav class="navbar navbar-expand-lg rounded" >
+                    <div class="container-fluid">
+                        <div class="container-btn">
+                            <button class="animation-button btn" id="sidebarCollapse">
+                                <i class="fas fa-align-left"></i>
+                                <span style="font-size:xx-large">熱門關鍵字</span>
+                                <div class="fill-btn"></div>
+                            </button>  
+                        </div>
+                        <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <i class="fas fa-align-justify"></i>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="nav navbar-nav ml-auto">
+                                <li class="nav-item active p-2">
+                                    歡迎 {{ request.user.last_name }}
+                                </li>
+                                <li class="nav-item">
+                                    <form action="/logout" method="get">
+                                        {% csrf_token %}
+                                        <button type="submit" class="form-control">登出</button>
+                                    </form>
+                                </li>
+                            </ul>
                         </div>
                     </div>
-                    <div id="search-block" class="search-block p-2 mt-2 flex-nowrap scrollspy-example" data-spy="scroll" data-offset="0">
-                        <div class="d-flex flex-fill searchitem p-2 mb-2 align-items-center">
-                            <div class="w-25 searchitem-img mr-2" style="background-image: url('https://cf.shopee.tw/file/e780039d6c49702cc2e97b54732a54bc');"></div>
-                            <div class="h-100 w-75 searchitem-name">加厚棒球手套</div>
-                        </div>
-                        <div class="d-flex flex-fill searchitem p-2 mb-2 align-items-center">
-                            <div class="w-25 searchitem-img mr-2" style="background-image: url('https://cf.shopee.tw/file/9902abf7a4199b7a13c319ea466958af');"></div>
-                            <div class="h-100 w-75 searchitem-name ">冷光線</div>
-                        </div>
-                        <div class="d-flex flex-fill searchitem p-2 mb-2 align-items-center">
-                            <div class="w-25 searchitem-img mr-2" style="background-image: url('https://cf.shopee.tw/file/9902abf7a4199b7a13c319ea466958af');"></div>
-                            <div class="h-100 w-75 searchitem-name ">冷光線</div>
-                        </div>
-                        <div class="d-flex flex-fill searchitem p-2 mb-2 align-items-center">
-                            <div class="w-25 searchitem-img mr-2" style="background-image: url('https://cf.shopee.tw/file/9902abf7a4199b7a13c319ea466958af');"></div>
-                            <div class="h-100 w-75 searchitem-name ">冷光線</div>
-                        </div>
-                        <div class="d-flex flex-fill searchitem p-2 mb-2 align-items-center">
-                            <div class="w-25 searchitem-img mr-2" style="background-image: url('https://cf.shopee.tw/file/9902abf7a4199b7a13c319ea466958af');"></div>
-                            <div class="h-100 w-75 searchitem-name ">冷光線</div>
-                        </div>
-                        <div class="d-flex flex-fill searchitem p-2 mb-2 align-items-center">
-                            <div class="w-25 searchitem-img mr-2" style="background-image: url('https://cf.shopee.tw/file/9902abf7a4199b7a13c319ea466958af');"></div>
-                            <div class="h-100 w-75 searchitem-name ">冷光線</div>
-                        </div>
-                        <div class="d-flex flex-fill searchitem p-2 mb-2 align-items-center">
-                            <div class="w-25 searchitem-img mr-2" style="background-image: url('https://cf.shopee.tw/file/9902abf7a4199b7a13c319ea466958af');"></div>
-                            <div class="h-100 w-75 searchitem-name ">冷光線</div>
-                        </div>
-                        <div class="d-flex flex-fill searchitem p-2 mb-2 align-items-center">
-                            <div class="w-25 searchitem-img mr-2" style="background-image: url('https://cf.shopee.tw/file/9902abf7a4199b7a13c319ea466958af');"></div>
-                            <div class="h-100 w-75 searchitem-name ">冷光線</div>
-                        </div>
-                        <div class="d-flex flex-fill searchitem p-2 mb-2 align-items-center">
-                            <div class="w-25 searchitem-img mr-2" style="background-image: url('https://cf.shopee.tw/file/9902abf7a4199b7a13c319ea466958af');"></div>
-                            <div class="h-100 w-75 searchitem-name ">冷光線</div>
+                </nav>
+                <div class="row">
+                    <div class="col-xl-12">
+                        <!--圖表-->
+                        <div class="block_1 card shadow">
+                            <div class="title p-2 w-100 d-flex" style="position: absolute;"><div class="rounded bg-owncolor chartdiv">&nbsp;</div>熱門關鍵字</div>
+                            <div class="p-2" style="position:relative;height:100%;width: 100%;"><div id="chartdiv"></div></div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div id="fade" class="black_content"></div> 
-        <!---->
-        <div id="content" class="container-fluid pr-5 pl-5">
-            <div id="content2" class="row d-flex flex-row content2">
-                <div class="col-12">
-                    <div id="num2" class="p-3 blocktitle">
-                        熱門搜尋商品
-                    </div>
-                    <div class="line ml-5 mr-5 justify-content-center"></div>
-                    <div class="row pl-5 pr-5">
-                        <div class="col-xl-12 pl-3 pr-3">
-                            <!--圖表-->
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="block_1">
-                                        <div class="charttitle p-2 w-100">熱門關鍵字</div>
-                                        <div class="p-2" style="writing-mode: vertical-lr;position: absolute;bottom: 15px;height: 90%;background-color: white;text-align: center">賣家數量</div>
-                                        <div style="height:95%;width: 100%;"><canvas id="keywordChart" style="height:100%;width: 100%;"></canvas></div>
-                                        <div class="p-2" style="position: absolute;bottom: 0;width: 95%;background-color: white;text-align: center">銷售數量</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-12 mt-5 mb-4">
-                            <div class="listtitle p-2 w-100">商品清單</div>
-                            <div class="bg-white p-3">
-                                <table id="table" class="table table-striped table-bordered table" style="width:100%">
+                    <div class="col-xl-12 mt-4 mb-4">  
+                        <div class="card shadow">
+                            <div class="title p-2 w-100 d-flex"><div class="rounded bg-owncolor chartdiv">&nbsp;</div>商品清單</div>
+                            <div class="p-3">
+                                <table id="table" class="table table-striped table-bordered" style="width:100%">
                                     <thead>
                                         <tr>
                                             <th>排序</th>
@@ -328,22 +315,17 @@
                 </div>
             </div>
         </div>
-	<!-- jQuery CDN - Slim version (=without AJAX) -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <!-- 背景svg -->
+    {% include 'bg.html'%}
     <!-- Popper.JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-    <!-- jQuery Custom Scroller CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
     <!-- Bootstrap JS -->
-    <script src="{%static 'bootstrap/scripts/bootstrap.min.js'%}"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-    <!--Sweetalert2 JS-->
-    <script src="{% static 'scripts/sweetalert2/dist/sweetalert2.min.css'%}"></script>
+    <script src="{%static 'bootstrap/js/bootstrap.min.js'%}"></script>
     <!--DataTable JS-->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
-
+    <!--Sweetalert2 JS-->
+    <script src="{% static 'sweetalert2/dist/sweetalert2.min.js'%}"></script>
     <script src="{% static 'scripts/sidebar.js' %}"></script>
     <script src="{% static 'scripts/keywords.js' %}"></script>
 	</body>

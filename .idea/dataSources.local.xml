@@ -13,8 +13,8 @@
         </introspection-scope>
       </schema-mapping>
     </data-source>
-    <data-source name="mysql" uuid="3ba96e7a-7264-41c0-8736-271e6a4f1d48">
-      <database-info product="MySQL" version="5.7.21-log" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.15 (Revision: 79a4336f140499bd22dd07f02b708e163844e3d5)" dbms="MYSQL" exact-version="5.7.21" exact-driver-version="8.0">
+    <data-source name="mysql" uuid="9bd744aa-d709-45e7-b771-d914b424c883">
+      <database-info product="MySQL" version="8.0.18" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.21 (Revision: 33f65445a1bcc544eb0120491926484da168f199)" dbms="MYSQL" exact-version="8.0.18" exact-driver-version="8.0">
         <extra-name-characters>#@</extra-name-characters>
         <identifier-quote-string>`</identifier-quote-string>
       </database-info>

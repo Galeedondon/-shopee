@@ -26,8 +26,8 @@ $('table.table1').DataTable(
             "orderable": false,
         }, 
         { "width": "15%", "targets": 0 },
-        { "width": "60%", "targets": 2 },
-        { "width": "15%", "targets": 3 },
+        { "width": "60%", "orderable": false, "targets": 2 },
+        { "width": "15%", "orderable": false, "targets": 3 },
     ]
 })
 

@@ -1,45 +1,106 @@
 body{
-	font-family: '微軟正黑體';
+    font-family: '微軟正黑體';
+    color:#2A324B!important;
+}
+body.noscroll{
+    overflow: hidden;
+}
+.owncolor{
+    color:#fcbe32;
 }
 .bg-owncolor{
-    background-color: #F8B064;
+    background-color: #fcbe32;
 }
 .bd-ownborder{
-    border:1px solid #F8B064;
+    border:1px solid #fcbe32;
+}
+.navbar {
+    padding: 10px 10px;
+    background: #e1eef6;
+    border: none;
+    border-radius: 0;
+    margin-bottom: 20px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+.navbar-btn {
+    box-shadow: none;
+    outline: none !important;
+    border: none;
+}
+.animation-button {
+	position: relative;
+	border: 0;
+	border-radius: 5px;
+	text-transform: uppercase;
+	font-size: 2em;
+	letter-spacing: 0.2em;
+	overflow: hidden;
+    box-shadow:0px 0px 10px -2px rgba(20%,20%,40%,0.6);
+    z-index: 100;
+    color:#F8EEE6 ;
+    font-weight: bolder;
+}
+
+.fill-btn {
+	position: absolute;
+	background-image: linear-gradient(to right, #ff5f2e      , #E56E3D   );
+	background-size: 150% 150%;
+	height: 90px;
+	width: 450px;
+    border-radius: 5px;
+	margin: -60px 0 0 -140px;
+    z-index: -1;
+	transition: all 0.4s ease;
+}
+
+.container-btn:hover .fill-btn {
+	-webkit-animation: gradient 6s ease infinite;
+	-moz-animation: gradient 6s ease infinite;
+	animation: gradient 6s ease infinite;
+}
+
+.container-btn:hover .animation-button {
+	-webkit-animation: gradient-color 6s ease infinite;
+	-moz-animation: gradient-color 6s ease infinite;
+	animation: gradient-color 6s ease infinite;
 }
 div.navbarcss{
-    background-color: #F8B064;
+    background-color: #fcbe32;
     height: 80px;
 }
 div.block_1{
     background-color: white;
-    height: 617px;
+    height: 600px;
 }
 div.block_2{
     background-color: white;
-    height: 537px;
+    border-top:5px solid #fcbe32;
 }
-div.blocktitle{
+.blocktitle{
     font-size: xx-large;
-    font-weight: bolder;
+    font-weight: bold;
     text-align: center;
-    color: #F8B064;
+    color: #F6B352;
+    -webkit-text-stroke: 0.5px #fcbe32;
 }
 div.line{
-    background-color:#F8B064;
-	height: 5px;
+    background-color:#fcbe32;
+    height: 5px;
 }
-div.charttitle{
-    text-align: center;
-    font-size: large;
-    border-bottom:2px solid #F8B064;
-}
-div.listtitle{
-    text-align: center;
-    font-size: large;
+div.title{
     background-color: white;
-    border-top:5px solid #F8B064;
-    border-bottom:2px solid #F8B064;
+    font-size: xx-large;
+}
+div.chartdiv{
+    margin: 5px;
+    font-size: x-large;
+    border:0.1rem solid #fcbe32;
+    height: 40px;
+}
+label.rankradio{
+    margin-top: 0.3rem;
+    margin-bottom: 0.3rem;
+    background-color:#e1eef6;
 }
 .scrollspy-example{
     overflow: auto;
@@ -54,7 +115,7 @@ div.searchblock::-webkit-scrollbar, html::-webkit-scrollbar, div.scrollspy-examp
 	width: 12px;
 	background-color: #EEEEEE;
 }
-div:focus, button:focus{
+div:focus, button:focus, input:focus {
 	outline: 0;
 }
 .table td{
@@ -66,9 +127,9 @@ div:focus, button:focus{
     padding: 0.8em 10px; 
 }
 table.dataTable thead {
-    background-color:#F8B064;
+    background-color:#fcbe32;
 }
 .pagination .page-item.active .page-link {
-    background-color: #F8B064;
-    border: 1px solid #F8B064;
+    background-color: #fcbe32;
+    border: 1px solid #fcbe32;
 }

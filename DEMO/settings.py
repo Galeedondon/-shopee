@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-STATICFILES_DIRS = [
+STATICFILES_DIRS=[
     "templates/static",
 ]
 # Application definition
@@ -81,7 +81,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'shopee1',
-        'USER':'root',
+        'USER' : 'root',
         'PASSWORD': '1234',
         'HOST': 'localhost',
         'PORT': '3306',

@@ -1,0 +1,40 @@
+<!--Doodle JS-->
+<script src="https://unpkg.com/css-doodle@0.8.5/css-doodle.min.js"></script>
+<!-- 背景svg -->
+<css-doodle>
+:doodle {
+    @grid: 12 / 100%;
+    opacity: 0.4;
+    position: fixed;
+    z-index:-1;
+    }
+    @size: 1.5px calc(141.4% + 1px);
+    transform: rotate(@p(±45deg));
+    background: #f6cab1;
+    margin: 0; 
+</css-doodle>
+
+<script>
+    const doodle = document.querySelector('css-doodle');
+
+    setInterval(function(){ 
+
+        doodle.update(`
+            :doodle {
+                @grid: 12 / 100%;
+                opacity: 0.4;
+                position: fixed;
+                z-index:-1;
+            }
+            
+            transition: .4s @r(.6s);
+            @size: 1.5px calc(141.4% + 1px);
+            transform: rotate(@p(±45deg));
+            background: #ff5f2e;
+            margin: 0;
+        `);
+    　　doodle.update(); 
+    }
+    , 3000);
+
+</script>

@@ -25,7 +25,7 @@ $('table.table1').DataTable(
             "orderable": false,
         }, 
         { "width": "10%", "targets": 0 },
-        { "width": "50%", "targets": 2 },
+        { "width": "50%", "orderable": false, "targets": 2 },
         { "width": "25%", "targets": 3 },
     ]
 })
@@ -47,27 +47,26 @@ $('table.table2').DataTable(
         }
     },
     columnDefs: [
-    { targets: 1,
-        "data1":"img",
-        render: function(data1) {
-            return '<img src="'+data1+'" style="height:50px">'   
-        },
-        "width": "10%",
-        "orderable": false,
-    }, 
-    { targets: 4,
-        "data2":"img",
-        render: function(data2) {
-            return '<img src="'+data2+'" style="height:50px">'   
-        },
-        "width": "10%",
-        "orderable": false,
-    }, 
-    { "width": "10%", "targets": 0 },
-    { "width": "25%", "targets": 2 },
-    { "width": "10%", "targets": 3 },
-    { "width": "25%", "targets": 5 },
-    { "width": "10%", "targets": 6 },
-    
-]
+        { targets: 1,
+            "data1":"img",
+            render: function(data1) {
+                return '<img src="'+data1+'" style="height:50px">'   
+            },
+            "width": "8%",
+            "orderable": false,
+        }, 
+        { targets: 4,
+            "data2":"img",
+            render: function(data2) {
+                return '<img src="'+data2+'" style="height:50px">'   
+            },
+            "width": "8%",
+            "orderable": false,
+        }, 
+        { "width": "8%", "targets": 0 },
+        { "width": "28%", "orderable": false, "targets": 2 },
+        { "width": "10%", "targets": 3 },
+        { "width": "28%", "orderable": false, "targets": 5 },
+        { "width": "10%", "targets": 6 },
+    ]
 })

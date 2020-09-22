@@ -11,16 +11,6 @@ button.searchside{
     background: white;
     height: 100%;
 }
-button.delete:hover{
-    width: 100%;
-    border: 1px solid #CCCCCC;
-    background: #CCCCCC;
-    height: 100%;
-    color: white;
-}
-div.card{
-    border: none;
-}
 div.cardheader{
     color: white;
     background: #F8B064;
@@ -38,16 +28,15 @@ ul.cardlist{
     padding-inline-start: 10px;
     text-align: left;
     height: 100%;
-    border: none;
 }
 li.carditems{
     font-size: medium;
     text-decoration: none;
 }
 li.carditems>a{
-    color: black;
+    color:#2A324B!important;
 }
 li.carditems>a:hover{
-    color: black;
+    color:#2A324B!important;
     text-decoration: underline;
 }

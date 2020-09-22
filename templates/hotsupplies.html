@@ -11,57 +11,50 @@
 		<title>蝦款-熱門商品</title>
         <link rel="icon" href="{% static 'images/titleicon.png' %}" type="image/x-icon"/>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
-
-
-        <!--Sweetalert2 CSS-->
-        <link rel="stylesheet" href="{% static 'sweetalert2/dist/sweetalert2.min.css'%}">
+        <!--JQuery-->
+        <script src="{% static 'jquery-3.5.1.min.js'%}"></script>
+        
 		<!-- Bootstrap CSS-->
-        <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css'%}">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
         <!--DataTable CSS-->
         <link rel="stylesheet" type="text/css" href="{% static 'datatables/css/datatables.min.css'%}"/>
+        <!--Sweetalert2 CSS-->
+        <link rel="stylesheet" href="{% static 'sweetalert2/dist/sweetalert2.min.css'%}">
         <!-- Our Custom CSS -->
-        <link rel="stylesheet" href="{% static 'css/rankcharts.css' %}">
-        <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
-        <link rel="stylesheet" href="{% static 'css/search.css' %}">
         <link rel="stylesheet" href="{% static 'css/all.css' %}" type="text/css">
+        <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">   
         <link rel="stylesheet" href="{% static 'css/hotsupplies.css' %}" type="text/css">
-
-
+        
 		<!-- Font Awesome JS -->
 		<script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
 		<script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+        
     </head>
-	<body style="background-image: url('{%static 'images/背景.jpg'%}');">
-        <div id="content2">
-            <button type="button" id="sidebarCollapse" class="btn btn-info">
-                <i class="fas fa-align-left"></i>
-            </button>
-        </div>
-		<div class="wrapper">
+    <body id="body">
+        <div class="wrapper">
             <!-- Sidebar -->
             <nav id="sidebar">
                 <div class="sidebar-header">
                     <div class="logo" style="background-image: url('{% static 'images/logo.png' %}')"></div>
                 </div>
-                <div class="border-top"></div>
                 <ul class="list-unstyled components">
-                    <li class="active">
+                    <li class="pagelist">
                         <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><img class="icon" src="{% static 'images/rank_icon.png' %}">排行</a>
                         <ul class="list-unstyled collapse show" id="homeSubmenu1">
                             <li>
-                                <a href="\hotsupplies"><img class="icon" src="{% static 'images/hotpdt_icon.png' %}">熱門商品</a>
+                                <a href="\hotsupplies" class="visit" ><img class="icon" src="{% static 'images/hotpdt_icon.png' %}">熱門商品</a>
                             </li>
                             <li>
                                 <a href="\keywords"><img class="icon" src="{% static 'images/hotsearch_icon.png' %}">熱門關鍵字</a>
                             </li>
                         </ul>
                     </li>
-                    <li class="active">
+                    <li class="pagelist">
                         <a href="#homeSubmenu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle collapsed"><img class="icon" src="{% static 'images/shop.png' %}">組合專區</a>
                         <ul class="list-unstyled collapse" id="homeSubmenu2">
                             <li class="d-flex">
                                 <div class="form-control w-75" placeholder="空白簽名球" style="border-radius: 0px;">空白簽名球</div>
-                                <button class="btn p-1 pl-2 pr-2" onclick="opnsearch()" style="background-color: #EEEEEE;border-radius:0px;">搜尋</button>
+                                <button class="w-25 btn p-1 pl-2 pr-2" onclick="opnsearch()" style="background-color: #EEEEEE;border-radius:0px;">搜尋</button>
                             </li>
                             <li>
                                 <a href="\pricerange"><img class="icon" src="{% static 'images/sales.png'%}">價錢區間</a>
@@ -74,7 +67,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="active">
+                    <li class="pagelist">
                         <a href="#homeSubmenu3" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle collapsed"><img class="icon" src="{% static 'images/user.png' %}">個人專頁</a>
                         <ul class="list-unstyled collapse" id="homeSubmenu3">
                             <li>
@@ -90,266 +83,526 @@
                     </li>
                 </ul>
             </nav>
-        </div>
-        <!-- 搜尋視窗 -->
-        <div id="light" class="white_content">
-            <button class="clssearch" onclick="clssearch()">
-                <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-x-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                    <path fill-rule="evenodd" d="M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z"/>
-                    <path fill-rule="evenodd" d="M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z"/>
-                </svg>
-            </button>
-            <div class="row h-100">
-                <div class="col-6 d-flex h-100 flex-column">
-                    <div class="d-flex flex-wrap form-checkblock mb-2" id="form1">
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" id="check1" value="女生衣著"/>女生衣著</div>
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="女生包包/精品"/>女生包包/精品</div>
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="女生配件"/>女生配件</div>  
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="男生衣著"/>男生衣著</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="男生包包與配件"/>男生包包與配件</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="男鞋"/>男鞋</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="3C與筆電"/>3C與筆電</div>
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="手機平板與周邊"/>手機平板與周邊</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="居家生活"/>居家生活</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="家電影音"/>家電影音</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="遊戲王"/>遊戲王</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="娛樂、收藏"/>娛樂、收藏</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="戶外與運動用品"/>戶外與運動用品</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="服務、票券"/>服務、票券</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="美妝保健"/>美妝保健</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="嬰幼童與母親"/>嬰幼童與母親</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="美食、伴手禮"/>美食、伴手禮</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="寵物"/>寵物</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="汽機車零件百貨"/>汽機車零件百貨</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="書籍及文創商品"/>書籍及文創商品</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="其他類別"/>其他類別</div> 
-                    </div>
-                    <div class="d-flex flex-wrap form-checkblock mb-2" id="form2" style="visibility: hidden;">
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" id="check2" value="女生衣著"/>女生衣著</div>
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="女生包包/精品"/>女生包包/精品</div>
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="女生配件"/>女生配件</div>  
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="男生衣著"/>男生衣著</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="男生包包與配件"/>男生包包與配件</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="男鞋"/>男鞋</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="3C與筆電"/>3C與筆電</div>
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="手機平板與周邊"/>手機平板與周邊</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="居家生活"/>居家生活</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="家電影音"/>家電影音</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="遊戲王"/>遊戲王</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="娛樂、收藏"/>娛樂、收藏</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="戶外與運動用品"/>戶外與運動用品</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="服務、票券"/>服務、票券</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="美妝保健"/>美妝保健</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="嬰幼童與母親"/>嬰幼童與母親</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="美食、伴手禮"/>美食、伴手禮</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="寵物"/>寵物</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="汽機車零件百貨"/>汽機車零件百貨</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="書籍及文創商品"/>書籍及文創商品</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="其他類別"/>其他類別</div> 
-                    </div>
-                    <div class="d-flex flex-wrap form-checkblock " id="form3" style="visibility: hidden;">
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" id="check3" value="女生衣著"/>女生衣著</div>
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="女生包包/精品"/>女生包包/精品</div>
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="女生配件"/>女生配件</div>  
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="男生衣著"/>男生衣著</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="男生包包與配件"/>男生包包與配件</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="男鞋"/>男鞋</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="3C與筆電"/>3C與筆電</div>
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="手機平板與周邊"/>手機平板與周邊</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="居家生活"/>居家生活</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="家電影音"/>家電影音</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="遊戲王"/>遊戲王</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="娛樂、收藏"/>娛樂、收藏</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="戶外與運動用品"/>戶外與運動用品</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="服務、票券"/>服務、票券</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="美妝保健"/>美妝保健</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="嬰幼童與母親"/>嬰幼童與母親</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="美食、伴手禮"/>美食、伴手禮</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="寵物"/>寵物</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="汽機車零件百貨"/>汽機車零件百貨</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="書籍及文創商品"/>書籍及文創商品</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="其他類別"/>其他類別</div> 
-                    </div>
-                </div>
-                <div class="col-6 h-100">
-                    <div class="p-2" style="background-color: #EEEEEE;">
-                        <div class="d-flex">
-                            <input type="text" class="form-control"/>
-                            <input type="submit" class="form-control w-25" onclick="search()" style="background-color: #F8B064;"/>
+            <!-- 搜尋視窗 -->
+            {% include 'search.html'%}
+            <!--js抓值-->
+            <input value = "{{data_price}}" id = "search_price" style="display: none"/>
+            <input value = "{{data_sold }}" id = "search_sold" style="display: none"/>
+            <input value = "{{data_seller}}" id = "search_seller" style="display: none"/>
+            <input value = "{{data_name }}" id = "search_name" style="display: none"/>
+            <input value = "{{data_avg }}" id = "search_avg" style="display: none"/>
+            <!--js抓值結束-->
+            <!---->
+            <div id="content">
+                <nav class="navbar navbar-expand-lg rounded" >
+                    <div class="container-fluid">
+                        <div class="container-btn">
+                            <button class="animation-button btn" id="sidebarCollapse">
+                                <i class="fas fa-align-left"></i>
+                                <span style="font-size:xx-large">熱門商品</span>
+                                <div class="fill-btn"></div>
+                            </button>  
+                        </div>
+                        <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <i class="fas fa-align-justify"></i>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="nav navbar-nav ml-auto">
+                                <li class="nav-item active p-2">
+                                    歡迎 {{ request.user.last_name }}
+                                </li>
+                                <li class="nav-item">
+                                    <form action="/logout" method="get">
+                                        {% csrf_token %}
+                                        <button type="submit" class="form-control logout">登出</button>
+                                    </form>
+                                </li>
+                            </ul>
                         </div>
                     </div>
-                    <div id="search-block" class="search-block p-2 mt-2 flex-nowrap scrollspy-example" data-spy="scroll" data-offset="0">
-                        <div class="d-flex flex-fill searchitem p-2 mb-2 align-items-center">
-                            <div class="w-25 searchitem-img mr-2" style="background-image: url('https://cf.shopee.tw/file/e780039d6c49702cc2e97b54732a54bc');"></div>
-                            <div class="h-100 w-75 searchitem-name">加厚棒球手套</div>
-                        </div>
-                        <div class="d-flex flex-fill searchitem p-2 mb-2 align-items-center">
-                            <div class="w-25 searchitem-img mr-2" style="background-image: url('https://cf.shopee.tw/file/9902abf7a4199b7a13c319ea466958af');"></div>
-                            <div class="h-100 w-75 searchitem-name ">冷光線</div>
-                        </div>
-                        <div class="d-flex flex-fill searchitem p-2 mb-2 align-items-center">
-                            <div class="w-25 searchitem-img mr-2" style="background-image: url('https://cf.shopee.tw/file/9902abf7a4199b7a13c319ea466958af');"></div>
-                            <div class="h-100 w-75 searchitem-name ">冷光線</div>
-                        </div>
-                        <div class="d-flex flex-fill searchitem p-2 mb-2 align-items-center">
-                            <div class="w-25 searchitem-img mr-2" style="background-image: url('https://cf.shopee.tw/file/9902abf7a4199b7a13c319ea466958af');"></div>
-                            <div class="h-100 w-75 searchitem-name ">冷光線</div>
-                        </div>
-                        <div class="d-flex flex-fill searchitem p-2 mb-2 align-items-center">
-                            <div class="w-25 searchitem-img mr-2" style="background-image: url('https://cf.shopee.tw/file/9902abf7a4199b7a13c319ea466958af');"></div>
-                            <div class="h-100 w-75 searchitem-name ">冷光線</div>
-                        </div>
-                        <div class="d-flex flex-fill searchitem p-2 mb-2 align-items-center">
-                            <div class="w-25 searchitem-img mr-2" style="background-image: url('https://cf.shopee.tw/file/9902abf7a4199b7a13c319ea466958af');"></div>
-                            <div class="h-100 w-75 searchitem-name ">冷光線</div>
-                        </div>
-                        <div class="d-flex flex-fill searchitem p-2 mb-2 align-items-center">
-                            <div class="w-25 searchitem-img mr-2" style="background-image: url('https://cf.shopee.tw/file/9902abf7a4199b7a13c319ea466958af');"></div>
-                            <div class="h-100 w-75 searchitem-name ">冷光線</div>
-                        </div>
-                        <div class="d-flex flex-fill searchitem p-2 mb-2 align-items-center">
-                            <div class="w-25 searchitem-img mr-2" style="background-image: url('https://cf.shopee.tw/file/9902abf7a4199b7a13c319ea466958af');"></div>
-                            <div class="h-100 w-75 searchitem-name ">冷光線</div>
-                        </div>
-                        <div class="d-flex flex-fill searchitem p-2 mb-2 align-items-center">
-                            <div class="w-25 searchitem-img mr-2" style="background-image: url('https://cf.shopee.tw/file/9902abf7a4199b7a13c319ea466958af');"></div>
-                            <div class="h-100 w-75 searchitem-name ">冷光線</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="fade" class="black_content"></div> 
-        <!---->
-        <div id="content" class="container-fluid pr-5 pl-5">
-            <div class="row d-flex flex-row">
-                <div class="col-12">
-                    <div id="num1" class="p-3 blocktitle">
-                        熱門商品
-                    </div>
-                    <div class="line ml-5 mr-5 justify-content-center"></div>
-                    <div class="row pl-5 pr-5">
-                        <div class="col-xl-4 pl-3">
-                            <div class="block_1 d-flex flex-column">
-                                <div class="p-2 searchtitle">類別搜尋</div>
+                </nav>
+                <div class="row">
+                    <div class="col-xl-12">
+                        <!--圖表-->
+                        <div class="card shadow block_1">
+                            <div class="p-2 w-100 d-flex justify-content-between">
+                                <div class="title d-flex">
+                                    <div class="rounded bg-owncolor chartdiv">&nbsp;</div>
+                                綜合類別
+                                </div>
+                                <div class="d-flex justify-content-around rounded mr-2">
+                                    <label class="rankradio radio-inline p-2"><input type="radio" name="optradio" onclick = "sold_0()" checked>銷量排行</label>
+                                    <label class="rankradio radio-inline p-2"><input type="radio" name="optradio" onclick = "avg_sold_0()">平均賣家銷量</label>
+                                    <label class="rankradio radio-inline p-2"><input type="radio" name="optradio" onclick = "seller_0()">賣家數量</label>
+                                </div>
+                            </div>
 
-                                <div class="pt-2 pb-2 pr-2 d-flex">
-                                    <div class="pl-2 pr-1 w-50"><button id="search1" class="searchside">綜合類別</button></div>
-                                    <div class="pl-1 pr-2 flex-fill"><button id="search2" class="searchside"></button></div>
+                            <script>
+                                function node(name, child){
+                                    this.name=name;
+                                    this.child=child;
+                                }
+
+                                function dataHierarchy(){
+                                    // 女生衣著
+                                    var girl_cloth=new Array();
+                                    var i=0;
+                                    girl_cloth[i++]=new node("上衣類", ["其他上衣", "雪紡上衣", "螺紋針織上衣","一字領上衣"]);
+                                    girl_cloth[i++]=new node("帽T/大學T", ["長袖帽T", "短袖帽T", "大學T", "其他"]);
+                                    girl_cloth[i++]=new node("針織/毛衣", ["其他針織、毛衣","長袖針織/毛衣","針織/毛衣背心","針織外套","罩衫"]);
+                                    girl_cloth[i++]=new node("T恤", ["短袖T恤", "長袖T恤", "其他T恤"]);
+                                    girl_cloth[i++]=new node("小可愛/背心", ["無袖背心","其他背心","細肩帶背心","繞頸挖背背心","平口背心"]);
+                                    girl_cloth[i++]=new node("洋裝", ["無袖洋裝","短袖洋裝","長袖洋裝","過膝長洋裝","其他洋裝","五分七分袖洋裝","宴會禮服婚紗","平口/一字領洋裝"]);
+                                    girl_cloth[i++]=new node("襯衫", ["短袖襯衫","長袖襯衫","無袖襯衫","七分袖襯衫","其他襯衫"]);
+                                    girl_cloth[i++]=new node("短褲", ["牛仔短褲","休閒短褲","其他短褲","連身褲/吊帶褲","褲裙","內搭短褲"]);
+                                    girl_cloth[i++]=new node("長褲", ["寬褲","連身褲/吊帶褲","休閒長褲","牛仔長褲","其他長褲","內搭長褲","七分褲","哈倫褲/西裝褲"]);
+                                    girl_cloth[i++]=new node("裙子", ["長裙","及膝裙","A字裙","牛仔裙","吊帶裙","其他裙款","迷你裙"]);
+                                    girl_cloth[i++]=new node("外套", ["薄外套","西裝外套","皮衣/皮草","風衣","毛料外套","羽絨外套","牛仔外套","夾克/棒球外套","其他外套","大衣/斗篷","羽絨背心"]);
+                                    girl_cloth[i++]=new node("休閒運動服飾", ["運動內衣","休閒運動外套","休閒運動套裝","休閒運動上衣","休閒運動褲/裙","其他"]);
+                                    girl_cloth[i++]=new node("多件式套裝", ["其他款式套裝","長袖褲裝/裙裝","短袖褲裝/裙裝","連身套裝","兩件式套裝","三件式套裝"]);
+                                    girl_cloth[i++]=new node("泳衣/比基尼", ["連身泳衣","多件式泳衣","比基尼","其他款式","防曬/防寒泳裝","泳衣配件"]);
+                                    girl_cloth[i++]=new node("內睡衣", ["其他款式","發熱衣/衛生衣","塑身衣","情趣角色服","品牌內衣褲","流行內衣","流行內褲","成套內衣褲","流行睡衣居家服","品牌睡衣居家服","全罩杯內衣","3/4罩杯內衣","隱形/無肩帶內衣","無鋼圈內衣","學生內衣","大罩杯內衣(D以上)","內衣配件","馬甲/束褲/束腰","丁字褲","三角褲","安全褲","生理褲","睡衣","性感睡衣"]);
+                                    girl_cloth[i++]=new node("其他", ["其他"]);
+                                    girl_cloth[i++]=new node("大尺碼", ["其他大尺碼", "大尺碼上衣","大尺碼裙裝", "大尺碼洋裝", "大尺碼套裝","大尺碼泳裝", "大尺碼褲裝"]);
+                                    // 女生包包/精品
+                                    var girl_bag=new Array();
+                                    var i=0;
+                                    girl_bag[i++]=new node("側背包/肩背包", ["其他","小方包","兩用包","鏈帶包"]);
+                                    girl_bag[i++]=new node("皮夾", ["長夾","短夾","中夾","其他","零錢包/鑰匙包","化妝包/萬用包","名片/證件夾","護照夾","手拿包","背帶/配件"]);
+                                    girl_bag[i++]=new node("手提/托特包", ["水餃包","波士頓包","其他","購物袋","子母包"]);
+                                    girl_bag[i++]=new node("後背包", ["M帆布後背包","其他","小後背包","電腦包","休閒後背包"]);
+                                    girl_bag[i++]=new node("名牌精品包", ["其他","托特包","後背包","斜背包","手提包","化妝包/萬用包","皮夾/手拿包","零錢包/鑰匙包","名片/證件夾","肩背包"]);
+                                    girl_bag[i++]=new node("其他", ["其他"]);
+                                    girl_bag[i++]=new node("帆布包", ["其他","側/肩背包","斜背包","手提/托特包"]);
+                                    girl_bag[i++]=new node("斜背包", ["其他","水桶包","小方包","兩用包","鏈帶包"]);
+
+                                    // 女生配件
+                                    var girl_fitting=new Array();
+                                    var i=0;
+                                    girl_fitting[i++]=new node("項鍊", ["長項鍊", "短項鍊", "頸項鍊", "其他項鍊"]);
+                                    girl_fitting[i++]=new node("手環", ["金手環", "銀手環","皮手環", "其他手環"]);
+                                    girl_fitting[i++]=new node("耳環", ["鑽耳環","純銀耳環","垂墜耳環","鋼耳環","其他耳環"]);
+                                    girl_fitting[i++]=new node("戒指", ["金戒","銀戒","鋼戒","尾戒","鑽戒","其他"]);
+                                    girl_fitting[i++]=new node("髮飾", ["髮帶","髮箍","髮圈","鯊魚夾","髮夾","蝴蝶結髮夾","兒童髮飾","其他","假髮/髮片"]);
+                                    girl_fitting[i++]=new node("圍巾、手套", ["絲巾","披肩","針織圍巾","脖圍","手套","其他"]);
+                                    girl_fitting[i++]=new node("眼鏡", ["太陽眼鏡","復古眼鏡","圓框眼鏡","其他眼鏡"]);
+                                    girl_fitting[i++]=new node("手錶", ["其他","太陽眼鏡","機械錶","電子錶","鋼帶錶","三眼錶","卡通錶"]);
+                                    girl_fitting[i++]=new node("襪子", ["絲襪","彈性襪","短襪","長襪","運動襪","船型襪","毛襪","其他"]);
+                                    girl_fitting[i++]=new node("吊飾", ["迪士尼","手作吊飾","韓國吊飾","日本吊飾","其他","其他吊飾"]);
+                                    girl_fitting[i++]=new node("其他", ["其他"]);
+                                    girl_fitting[i++]=new node("帽子", ["棒球帽","漁夫帽","毛帽","造型帽","牛仔帽","紳士帽","其他帽款"]);
+                                    girl_fitting[i++]=new node("皮帶/腰帶", ["其他"]);
+                                    girl_fitting[i++]=new node("國際精品配件", ["其他","精品紡品","精品飾品","精品吊飾","精品眼鏡/太陽眼鏡","精品手錶"]);
+                                    girl_fitting[i++]=new node("鑽石", ["其他","鑽石項鍊","鑽石耳環","鑽石手環","鑽石戒指"]);
+                                    girl_fitting[i++]=new node("黃金", ["其他","鉑金/K金","黃金項鍊","黃金耳環","黃金手環","黃金戒指","黃金串珠","黃金彌月禮","黃金生肖/星座","黃金收藏/擺飾品","黃金套組"]);
+                                    girl_fitting[i++]=new node("珠寶/玉石", ["其他","珠寶/玉石項鍊","珠寶/玉石耳環","珠寶/玉石手環","珠寶/玉石戒指"]);
+                                    girl_fitting[i++]=new node("流行腳鍊", ["其他腳鍊","鋼腳鍊","鍍金/鍍銀手環","純銀腳鍊"]);
+
+                                    // 女鞋
+                                    var girl_shoes=new Array();
+                                    var i=0;
+                                    girl_shoes[i++]=new node("涼鞋、拖鞋", ["厚底涼鞋","夾腳拖鞋","其他","平底涼拖鞋","中跟涼拖鞋","高跟涼拖鞋","楔型涼鞋"]);
+                                    girl_shoes[i++]=new node("靴子", ["短/踝靴","長靴","雨靴","過膝靴","雪靴","其他","客製化","代買代購","中筒靴","襪套靴"]);
+                                    girl_shoes[i++]=new node("其他", ["其他"]);
+                                    girl_shoes[i++]=new node("鞋材用品", ["其他","鞋墊","鞋撐/鞋帶","鞋類除臭","鞋撐","鞋帶","鞋類清潔保養","後跟貼","鞋拔"]);
+                                    girl_shoes[i++]=new node("休閒鞋", ["運動休閒鞋","其他","懶人鞋","帆布鞋","客製化","代買代購","小白鞋","編織鞋、草編鞋","厚底鞋","洞洞鞋"]);
+                                    girl_shoes[i++]=new node("包鞋", ["中跟鞋 3-6cm","低跟鞋 3cm以下","楔型鞋","厚底鞋","平底鞋","客製化","代買代購","其他","高跟鞋 6cm以上"]);
+                                    // 男生衣著
+                                    var man_cloth=new Array();
+                                    var i=0;
+                                    man_cloth[i++]=new node("帽T、大學T", ["長袖帽T","短袖帽T","長版帽T","大學T","其他","大尺碼帽T"]);
+                                    man_cloth[i++]=new node("襯衫", ["長袖襯衫","短袖襯衫","大尺碼襯衫","其他襯衫"]);
+                                    man_cloth[i++]=new node("Polo衫", ["長袖Polo衫","短袖Polo衫","其他Polo衫"]);
+                                    man_cloth[i++]=new node("背心", ["純棉背心","鋪棉背心","針織背心","其他背心"]);
+                                    man_cloth[i++]=new node("短褲", ["大尺碼短褲","其他短褲","棉短褲","海灘褲","休閒短褲","工作短褲"]);
+                                    man_cloth[i++]=new node("長褲", ["西裝褲","工作褲","韓版長褲","休閒長褲","大尺碼長褲","其他長褲","棉褲"]);
+                                    man_cloth[i++]=new node("運動服飾", ["運動上衣","運動褲","運動外套","其他運動服飾"]);
+                                    man_cloth[i++]=new node("丹寧牛仔", ["其他","牛仔短褲","牛仔襯衫、外套","牛仔背心","大尺碼牛仔褲","牛仔長褲"]);
+                                    man_cloth[i++]=new node("外套", ["羽絨外套","針織外套","防風外套","棉質外套","連帽外套","棒球外套","西裝外套","皮外套","風衣、大衣","其他外套"]);
+                                    man_cloth[i++]=new node("男性內著", ["背心","內褲","睡衣褲","其他","發熱衣/衛生衣"]);
+                                    man_cloth[i++]=new node("其他", ["其他"]);
+                                    man_cloth[i++]=new node("T恤", ["短袖T恤","七分袖T恤","長袖T恤","大尺碼T恤","其他T恤"]);
+                                    man_cloth[i++]=new node("毛衣、針織衫", ["其他","V領針織衫、毛衣","圓領針織衫、毛衣","高領針織衫、毛衣","背心針織衫、毛衣","大尺碼針織衫、毛衣"]);
+                                    // 男生包包與配件
+                                    var man_bag=new Array();
+                                    var i=0;
+                                    man_bag[i++]=new node("錢包、皮件", ["短夾","長夾","名片夾","品牌皮夾","其他","證件套","零錢包","鑰匙包"]);
+                                    man_bag[i++]=new node("側背/斜背包", ["腰包","其他側背包","胸包","掀蓋包","托特包","旅行&運動包","相機包"]);
+                                    man_bag[i++]=new node("後背包", ["登山&運動背包","束口袋","其他後背包","電腦包、公事包","多WAY包","旅行包","品牌後背包"]);
+                                    man_bag[i++]=new node("手提包", ["筆電包","其他","托特包","公事包","多WAY包","旅行包","手拿包"]);
+                                    man_bag[i++]=new node("帽子", ["網帽","棒球帽","鴨舌帽","紳士帽","漁夫帽","毛帽、針織帽","其他"]);
+                                    man_bag[i++]=new node("手錶", ["設計錶","精品錶","流行錶","其他","日本錶","瑞士錶","錶帶"]);
+                                    man_bag[i++]=new node("眼鏡", ["太陽眼鏡","流行鏡框","品牌鏡框","其他眼鏡"]);
+                                    man_bag[i++]=new node("飾品", ["項鍊","手鍊、手環","戒指","袖扣","其他飾品","耳環","領巾"]);
+                                    man_bag[i++]=new node("圍巾、手套", ["針織手套","皮革手套","其他","圍巾"]);
+                                    man_bag[i++]=new node("襪子", ["長襪","短襪","其他襪款"]);
+                                    man_bag[i++]=new node("其他", ["其他"]);
+                                    man_bag[i++]=new node("皮帶、領帶", ["其他","皮帶、腰帶","領帶、領結"]);
+                                    man_bag[i++]=new node("男仕精品包包配件", ["其他","精品皮夾、皮件","精品側背包","精品配件","精品後背包","精品手提包"]);
+                                    // 男鞋
+                                    var man_shoes=new Array();
+                                    var i=0;
+                                    man_shoes[i++]=new node("休閒鞋", ["帆布鞋","懶人鞋","編織鞋、草編鞋","其他休閒鞋款","運動休閒鞋","小白鞋","客製化","代買代購","洞洞鞋","厚底鞋"]);
+                                    man_shoes[i++]=new node("靴子", ["馬汀靴款","其他","客製化","代買代購","休閒靴","綁帶靴、軍靴","雨靴","沙漠靴","雪靴"]);
+                                    man_shoes[i++]=new node("涼鞋、拖鞋", ["夾腳拖鞋","其他涼鞋、拖鞋","涼鞋","拖鞋"]);
+                                    man_shoes[i++]=new node("鞋材用品", ["其他","鞋墊","鞋撐","鞋類除臭","鞋類清潔保養","鞋帶","鞋拔"]);
+                                    man_shoes[i++]=new node("其他", ["其他"]);
+                                    man_shoes[i++]=new node("皮鞋", ["代買代購","客製化","其他","紳士鞋","牛津鞋","樂福鞋、帆船鞋","工作鞋","休閒鞋"]);
+                                    // 3C與筆電
+                                    var laptop=new Array();
+                                    var i=0;
+                                    laptop[i++]=new node("筆記型電腦", ["ASUS","Acer","Apple","Dell","Lenovo","HP","MSI","其他品牌","Microsoft"]);
+                                    laptop[i++]=new node("鍵盤滑鼠", ["無線鍵盤","有線鍵盤","無線滑鼠","有線滑鼠","其他","鍵盤滑鼠組"]);
+                                    laptop[i++]=new node("電腦零組件", ["DIY組裝電腦","顯示卡","CPU","主機板","RAM記憶體","電源供應器","散熱器/座","電腦機殼","光碟/光碟機","其他"]);
+                                    laptop[i++]=new node("儲存裝置", ["隨身碟","外接硬碟","內接硬碟","SSD固態硬碟","NAS","OTG","SD卡","其他記憶卡","讀卡機","其他"]);
+                                    laptop[i++]=new node("電腦周邊配件", ["視訊/監控設備","網路設備","影音周邊","列印機/掃描機","電腦包","電腦線材","轉接頭","碳粉/墨水夾","讀卡機","其它","電競周邊","電腦椅","軟體/服務","延長線"]);
+                                    laptop[i++]=new node("相機", ["數位相機","類單眼相機","底片、LOMO相機","拍立得相機","運動相機","空拍機","其他相機","360環景相機"]);
+                                    laptop[i++]=new node("相機周邊配件", ["腳架、雲台","電池","充電器","相機包","拍立得底片","相印機","防潮箱","濾鏡/保護鏡","鏡頭蓋","轉接環","攝影棚/燈","穩定器","其他配件"]);
+                                    laptop[i++]=new node("單眼/專業相機", ["其他","Canon","Nikon","Sony","Olympus","Panasonic","Fujifilm"]);
+                                    laptop[i++]=new node("鏡頭", ["自拍鏡","Canon","Nikon","Sony","廣角鏡頭","其他品牌"]);
+                                    laptop[i++]=new node("耳機/喇叭/麥克風", ["無線耳機","有線耳機","無線喇叭","有線喇叭","無線麥克風","有線麥克風","其它"]);
+                                    laptop[i++]=new node("穿戴/智能裝置", ["蘋果","小米","三星","Fitbit","Garmin","其他品牌","VR設備","智能家庭"]);
+                                    laptop[i++]=new node("其他", ["其他"]);
+                                    laptop[i++]=new node("螢幕顯示器", ["Default","19吋以下","20 - 22吋","23 - 25吋","26 - 28吋","29 - 32吋","34吋以上"]);
+                                    // 手機平板與周邊
+                                    var phone=new Array();
+                                    var i=0;
+                                    phone[i++]=new node("Apple空機", ["iPhone X 系列","iPhone 8 系列","iPhone 7 系列","iPhone 6 系列","iPhone 5 系列","其他","iPhone XS 系列","iPhone XR 系列","iPhone SE 系列","福利、二手機","iPhone 11 系列"]);
+                                    phone[i++]=new node("Android空機", ["Samsung空機","HTC空機","ASUS空機","Sony空機","小米空機","其他","OPPO空機","華為空機","LG空機","Sharp空機","Sugar空機","美圖空機","Google空機","福利、二手機","realme空機"]);
+                                    phone[i++]=new node("其他廠牌手機", ["其他"]);
+                                    phone[i++]=new node("平板電腦", ["iPad","安卓平板電腦","其他平板電腦"]);
+                                    phone[i++]=new node("行動電源", ["5000mah以下","5000-10000mah","10000mAh-20000mAh","其他","20000mAh以上"]);
+                                    phone[i++]=new node("iPhone充電傳輸", ["傳輸線","充電器","其他","轉接頭","無線充電盤"]);
+                                    phone[i++]=new node("iPhone保護殼", ["犀牛盾","Benks","UAG","Moshi","SOLiDE","iPhone 其他系列","水鑽殼","卡通殼","掀蓋殼","透明殼","行動充電殼","防水防塵殼","簡約素面殼","防撞防摔殼","客製化","Spigen"]);
+                                    phone[i++]=new node("iPhone保護貼", ["前保護貼","後保護貼","按鍵貼","其他"]);
+                                    phone[i++]=new node("Android充電傳輸", ["傳輸線","充電器","電池","其他","無線充電盤"]);
+                                    phone[i++]=new node("Android保護殼", ["Samsung保護殼","Sony保護殼","HTC保護殼","ASUS保護殼","Google保護殼","小米保護殼","其他手機保護殼","OPPO保護殼","華為保護殼","Nokia保護殼","LG保護殼","Sharp保護殼","Vivo保護殼","Sugar保護殼","美圖保護殼","客製化"]);
+                                    phone[i++]=new node("Android保護貼", ["Samsung保護貼","Sony保護貼","HTC保護貼","ASUS保護貼","Google保護貼","小米保護貼","其他手機保護貼","OPPO保護貼","華為保護貼","Nokia保護貼","LG保護貼","Sharp保護貼","Vivo保護貼","Sugar保護貼","美圖保護貼"]);
+                                    phone[i++]=new node("手機周邊配件", ["手機支架","手機袋/套","手機吊飾","其他","手機車支架","轉接電視棒、線"]);
+                                    phone[i++]=new node("耳機喇叭", ["有線耳機","藍牙耳機","有線喇叭","藍牙喇叭","其他"]);
+                                    phone[i++]=new node("電話、儲值卡", ["日本儲值卡","韓國儲值卡","香港特別行政區儲值卡","台灣儲值卡","其他國家和地區儲值卡","泰國儲值卡"]);
+                                    phone[i++]=new node("其他", ["其他"]);
+                                    phone[i++]=new node("拍照周邊", ["其他","線控自拍棒","藍牙自拍棒","補光、廣角鏡頭"]);
+                                    phone[i++]=new node("穿戴裝置", ["穿戴配件","其他","Apple","小米","Samsung","Fitbit","Garmin","ASUS"]);
+                                    phone[i++]=new node("手遊周邊配件", ["其他"]);
+                                    phone[i++]=new node("平板周邊", ["iPad保護周邊","Android平板保護周邊","其他平板周邊"]);
+                                    // 居家生活
+                                    var homelife=new Array();
+                                    var i=0;
+                                    homelife[i++]=new node("傢俱", ["沙發、沙發床","其他","茶几、邊桌","椅凳、吧檯椅","層架、櫥櫃","電腦椅、電競椅","衣櫃、衣架","化妝台、化妝鏡","和式椅、星球椅","餐桌、餐桌椅","書桌、電腦桌","鞋櫃、穿鞋椅","躺椅、摺疊椅"]);
+                                    homelife[i++]=new node("寢具", ["床架","被子、被套","枕頭、枕頭套","其他","冰涼墊、蓆類","保潔墊","其他床包、床罩","純棉床包","精梳棉床包","法蘭絨床包","3M吸濕排汗床包","天絲床包","床墊","毯子","睡袋"]);
+                                    homelife[i++]=new node("餐廚", ["刀具、砧板","餐具","保鮮盒、便當盒","其他","烘焙用具","炒鍋、平底鍋","湯鍋、燉鍋","鑄鐵鍋、琺瑯鍋","碗盤器皿","料理用具","淨水器","煎鍋、烤盤","鍋具組","蒸煮、壓力鍋具","廚上、廚下濾芯"]);
+                                    homelife[i++]=new node("水壺、杯子", ["冷水瓶、壺","水杯、馬克杯","保溫杯、保溫瓶","咖啡用品","酒杯、酒器","其他","水壺、杯子周邊配件","悶燒罐","濾水壺、濾芯","茶壺、茶具","保溫壺、笛音壺"]);
+                                    homelife[i++]=new node("浴室", ["毛巾、浴袍","蓮蓬頭","置物架、掛勾","牙刷架、漱口杯","沐浴刷、沐浴手套","踏墊","其他","馬桶、馬桶蓋","浴櫃","泡澡桶、泡腳桶"]);
+                                    homelife[i++]=new node("收納", ["收納袋、壓縮袋","桌上收納","鞋盒、鞋架","層架、置物架","其他","收納櫃、抽屜櫃","曬衣架、衣架","收納箱、收納盒、收納籃","飾品收納","化妝品收納","廚房收納","垃圾桶","掛勾","洗衣袋、洗衣籃"]);
+                                    homelife[i++]=new node("燈具", ["檯燈、立燈","吊燈、壁燈","小夜燈","燈泡","其他燈具","吸頂燈","燈管","吊扇、吊扇燈","燈串、燈條","崁燈","軌道燈","平板燈"]);
+                                    homelife[i++]=new node("居家裝飾", ["壁貼、窗貼","時鐘、掛鐘","地毯、地墊","其他裝飾","沙發套、椅套","窗簾、門簾","相框","風水擺飾","季節裝飾","乾燥花","抱枕、靠墊","居家拖鞋"]);
+                                    homelife[i++]=new node("日用品", ["菜瓜布、抹布","其它家用清潔劑","洗衣精、洗衣粉","口罩","其他","掃除用具","除蟲消毒","口腔保健","衛生紙、紙巾","防霉除濕","廚房紙巾","垃圾袋","洗手乳","柔軟精","衣物香氛","其他衣物清潔","廚房清潔劑","浴廁清潔劑","洗衣凝膠球","酒精、酒精棉片","棉花棒","牙線","OK繃、紗布、繃帶"]);
+                                    homelife[i++]=new node("居家香氛", ["擴香瓶","精油","水氧機","其他居家香氛","香氛膏","香氛片、香氛袋","香氛蠟燭","香氛噴霧"]);
+                                    homelife[i++]=new node("五金修繕", ["其他手工具","磁磚、地磚","油漆、塗料","黏接、修補","五金零件耗材","其他","螺絲起子","扳手","鉗子","工具梯 、手推車","手工具組","工作防護","開關、電料","水龍頭、水料"]);
+                                    homelife[i++]=new node("文具", ["修正用品","紙膠帶","紙製品","事務用品","繪畫、製圖","其他","原子筆","鉛筆、自動筆","其他書寫用具"]);
+                                    homelife[i++]=new node("園藝植作", ["種子、花苗","花架、花盆、花器","園藝器具","其他","園藝裝飾","園藝土壤","肥料"]);
+                                    homelife[i++]=new node("其他", ["其他"]);
+                                    homelife[i++]=new node("居安防護", ["其他","保險櫃","消防設備","門窗鎖","防災急難包","人身防護","感應照明燈","警報器"]);
+                                    homelife[i++]=new node("電動工具", ["其他","電鑽、電動起子","電鑽、電動起子配件","軍刀鋸","磨切機","砂輪機","其他切割機、電鋸","割草機","高壓清洗機","發電機","電流表、三用電表","其他電動工具","其他測量、檢測工具","電動工具配件","水平儀、測距輪","測距儀","氣動空壓工具"]);
+                                    homelife[i++]=new node("樂齡居家", ["其他","護具","暖暖包、冷熱水袋","拐杖、助行器","輪椅、電動輪椅","沐浴椅、馬桶椅","防撞條、護角、門檔","安全扶手"]);
+                                    // 家電影音
+                                    var homevideo=new Array();
+                                    var i=0;
+                                    homevideo[i++]=new node("影音設備", ["麥克風","線材","投影機","錄音筆","其他設備","Karaoke","DVD播放器"]);
+                                    homevideo[i++]=new node("廚房家電", ["烤箱","電鍋/電子鍋","果汁/豆漿機","其他廚房家電","咖啡機","電磁爐/電烤爐","點心/麵包機","洗/烘碗機","微波爐","美食/電火鍋","攪拌/料理機","電子秤","快煮壺","熱水瓶","紅酒櫃","淨水設備","萬用/壓力鍋","氣泡水機","油炸/氣炸鍋","真空包裝機"]);
+                                    homevideo[i++]=new node("電視機", ["30吋含以下","30-50吋","50吋含以上","其他及電視配件","電視盒","電視遙控器","4K電視"]);
+                                    homevideo[i++]=new node("音響、喇叭", ["藍芽喇叭","音響","家庭劇院","其他","收音機","AV Receiver"]);
+                                    homevideo[i++]=new node("生活家電", ["空氣清淨機","吸塵器","熨斗/掛燙機","通訊辦公","其他生活家電","捕蚊燈/除蟲","除濕機","掃地機器人","裁縫機","燈具/檯燈","香氛機","助眠機"]);
+                                    homevideo[i++]=new node("美容/健康家電", ["電鬍刀","吹風機/造型美容","美顏/美體","電動牙刷","其他美容家電","按摩器","體重/體脂計","除毛/修足機","泡腳機/足浴桶"]);
+                                    homevideo[i++]=new node("其他", ["其他"]);
+                                    homevideo[i++]=new node("大型家電", ["其他大型家電","冰箱","洗衣機","冷氣機","萬用遙控器","熱水器","排風/抽油煙機","免治馬桶","瓦斯爐","移動式空調","冷凍櫃","乾衣機","脫水機","紅酒櫃"]);
+                                    homevideo[i++]=new node("季節家電", ["電暖器-電膜式","電暖器-陶瓷式","電暖器-葉片式","電暖器-鹵素式","電暖器-對流式","煤油暖爐","烘被/烘鞋機","電暖蛋/懷爐","電毯/熱敷墊","冷/暖風機","其他電暖器","其他季節家電","DC電扇","AC電扇","循環扇","霧化/水冷扇","無葉扇","大廈扇","箱扇","工業扇","手持扇","壁/吊扇","排風扇","其他電扇"]);
+                                    // 遊戲王
+                                    var game=new Array();
+                                    var i=0;
+                                    game[i++]=new node("桌遊", ["派對遊戲","親子桌遊","策略遊戲","棋類撲克","麻將","拼圖","交換卡片遊戲","其他"]);
+                                    game[i++]=new node("掌上型電玩", ["Switch主機","Switch遊戲","Switch周邊","PSP及周邊","PS Vita及周邊","NDS及周邊","2DS、3DS及周邊","Gameboy及周邊","其他","限制級遊戲"]);
+                                    game[i++]=new node("電腦遊戲", ["PC遊戲","PC遊戲周邊","其他","限制級遊戲"]);
+                                    game[i++]=new node("主機遊戲", ["PS系列主機","PS系列周邊","PS系列遊戲","XBOX系列主機","XBOX系列周邊","XBOX系列遊戲","Wii及周邊","懷舊遊戲","其他","限制級遊戲","AR/VR"]);
+                                    game[i++]=new node("遊戲周邊商品", ["玩偶、公仔","服飾","配件","其他"]);
+                                    game[i++]=new node("手機遊戲", ["手機遊戲周邊", "其他"]);
+                                    game[i++]=new node("其他", ["其他"]);
+                                    game[i++]=new node("虛擬點數", ["其他","貝殼幣","Mycard","GASH","PSN點數/PS PLUS","XBOX禮物卡/XBOX金會員"]);
+                                    game[i++]=new node("家用型主機與周邊", ["其他","PS系列主機","XBOX系列主機","Wii主機","主機周邊"]);
+                                    game[i++]=new node("掌上型主機與周邊", ["其他","Switch主機","PSP主機","NDS系列主機","3DS系列主機","PS Vita主機","Gameboy主機","掌上型主機周邊"]);
+                                    // 娛樂、收藏
+                                    var entertainment=new Array();
+                                    var i=0;
+                                    entertainment[i++]=new node("書籍", ["教科參考書","雜誌期刊","文學小說","旅遊相關","語言學習","漫畫","其他書籍","其他","輕小說","電腦資訊","宗教命理","醫療保健","親子教養","藝術設計","自然科普","社會人文","生活風格","商業理財","心理勵志","限制級書刊"]);
+                                    entertainment[i++]=new node("樂器", ["吉他","弦樂器","鍵盤樂器","烏克麗麗","樂器配件","其他樂器","打擊樂器"]);
+                                    entertainment[i++]=new node("CD&DVD", ["華語流行CD","外國流行CD","電影DVD","電視劇DVD","演唱會DVD","其他","藍光"]);
+                                    entertainment[i++]=new node("收藏、紀念品", ["旅遊紀念品","翡翠&瓷器","藝術品","宗教收藏","金屬製品","其他"]);
+                                    entertainment[i++]=new node("玉、水晶、石", ["玉石","水晶","原石","其他"]);
+                                    entertainment[i++]=new node("卡、票", ["球卡","交通卡","遊戲卡","其他卡、票"]);
+                                    entertainment[i++]=new node("公仔、模型", ["卡漫週邊","遙控模型","模型車","四驅車及配件","其他","人偶、公仔","模型、鋼彈","預購公仔、模型"]);
+                                    entertainment[i++]=new node("明星偶像商品", ["日本","韓國","歐美明星","Others","其他","台灣"]);
+                                    entertainment[i++]=new node("玩偶、娃娃", ["三麗鷗","小叮噹","手創玩偶娃娃","迪士尼、皮克斯收藏","其他"]);
+                                    entertainment[i++]=new node("玩具", ["其他","益智玩具","遙控玩具","整人玩具","轉蛋&食玩","超商玩具","魔術道具","卡通玩具","預購玩具、轉蛋"]);
+                                    entertainment[i++]=new node("其他", ["其他"]);
+                                    entertainment[i++]=new node("LEGO與積木", ["盒組","樂高人偶","散磚、零件","其他"]);
+                                    // 戶外與運動用品
+                                    var sport=new Array();
+                                    var i=0;
+                                    sport[i++]=new node("運動用品", ["機能衣著","運動配備","運動護具","運動用品","球類用品","游泳穿戴、配備","運動訓練輔助器材","其他","運動背包/提袋","運動水壺","運動毛巾","運動測量/身體指數測量"]);
+                                    sport[i++]=new node("戶外服飾/鞋/配件", ["其它","排汗衣/褲","壓縮衣/褲","抗UV外套","抗風防水外套","運動襪","戶外保暖外套","滑雪服飾","戶外機能上著","戶外機能下著","戶外功能鞋款","戶外涼鞋","戶外配件/包袋","客製化","代買代購"]);
+                                    sport[i++]=new node("健身運動器材", ["重量訓練器材","瑜珈器材","舒緩按摩器材","大型健身器材","其他","中小型健身器材","客製化","代買代購"]);
+                                    sport[i++]=new node("戶外休閒用品", ["水上休閒活動","野餐相關","路跑相關","潛水","生存遊戲","釣魚","衝浪","溜冰、直排輪","其他","滑板車、平衡車","飛鏢相關","滑板相關","客製化","代買代購"]);
+                                    sport[i++]=new node("登山、露營", ["保暖防寒用品","登山機能配件","登山用具","露營零件和工具","照明燈具","帳蓬 & 相關用具","戶外桌椅","野炊用具","安全求助防身","睡袋寢具","其他","戶外防蟲用品"]);
+                                    sport[i++]=new node("腳踏車、自行車", ["腳踏車","公路車","人身穿戴配件","腳踏車零組件","兒童腳踏車","其他","腳踏車周邊用品","車衣、褲","客製化","代買代購"]);
+                                    sport[i++]=new node("行李箱", ["20吋以下","20~25吋","25吋以上","行李箱配件","其他","客製化","代買代購"]);
+                                    sport[i++]=new node("旅行相關用品", ["旅行用配件","旅行收納","旅行盥洗用品","其他"]);
+                                    sport[i++]=new node("雨衣、雨具", ["雨衣","雨傘","雨鞋","其他","防水相關用具"]);
+                                    sport[i++]=new node("其他", ["其他"]);
+                                    sport[i++]=new node("游泳", ["其他","泳裝","泳具","泳褲"]);
+                                    sport[i++]=new node("運動鞋款", ["其他","籃球鞋(男)","籃球鞋(女)","慢跑鞋(男)","慢跑鞋(女)","訓練鞋","網球鞋","排球/羽球鞋","運動涼/拖鞋","兒童運動鞋","兒童運動涼/拖鞋","其他運動鞋","客製化","代買代購"]);
+                                    sport[i++]=new node("運動服飾/帽襪", ["路跑運動服飾","運動內衣/背心","兒童運動服飾","運動帽","壓縮/緊身衣褲","運動襪","其他","男運動上衣","男運動下著","女運動上衣","女運動下著","運動外套","球類運動服飾","客製化","代買代購"]);
+                                    sport[i++]=new node("運動能量補給品", ["其他","三鐵/馬拉松補給","健身補給","代買代購","客製化"]);
+                                    // 服務、票券
+                                    var service_ticket=new Array();
+                                    var i=0;
+                                    service_ticket[i++]=new node("旅遊票券", ["交通票券","飯店、酒店住宿券","SPA、泡湯券","其他旅遊票券"]);
+                                    service_ticket[i++]=new node("餐券", ["飯店餐券","王品餐券","其他餐券"]);
+                                    service_ticket[i++]=new node("禮券", ["百貨禮券","超商禮券","折價券","其他"]);
+                                    service_ticket[i++]=new node("活動門票", ["展覽及表演門票","電影票","樂園","親子活動","其他"]);
+                                    service_ticket[i++]=new node("儲值、充值卡", ["實體通路儲值卡","虛擬寶物/帳號/儲值"]);
+                                    service_ticket[i++]=new node("服務、課程", ["美甲美睫","學習課程","其他"]);
+                                    service_ticket[i++]=new node("其他", ["其他"]);
+                                    // 美妝保健
+                                    var makeup=new Array();
+                                    var i=0;
+                                    makeup[i++]=new node("開架流行清潔保養", ["洗面乳","卸妝","臉部去角質","粉刺調理","凝膠","乳液、乳霜","精華液","化妝水、噴霧","眼霜、眼膜","保養組合","一般面膜","泥膜、凍膜","其他開架流行清潔保養"]);
+                                    makeup[i++]=new node("專櫃清潔保養", ["洗面乳","卸妝","臉部去角質","粉刺調理","凝膠","乳液、乳霜","精華液","化妝水、噴霧","眼霜、眼膜","保養組合","一般面膜","泥膜、凍膜","其他專櫃清潔保養"]);
+                                    makeup[i++]=new node("醫美清潔保養", ["洗面乳","卸妝","臉部去角質","粉刺調理","凝膠","乳液、乳霜","精華液","化妝水、噴霧","眼霜、眼膜","保養組合","一般面膜","泥膜、凍膜","其他醫美清潔保養"]);
+                                    makeup[i++]=new node("開架流行彩妝", ["隔離霜、飾底乳","粉底、氣墊粉餅","蜜粉","粉餅","遮瑕膏","腮紅","打亮、修容","彩妝組合","眼影","眼線類產品","假睫毛","睫毛膏","眉彩類產品","雙眼皮貼","唇彩類產品","唇部保養","其他開架流行彩妝"]);
+                                    makeup[i++]=new node("專櫃彩妝", ["隔離霜、飾底乳","粉底、氣墊粉餅","蜜粉","粉餅","遮瑕膏","腮紅","打亮、修容","彩妝組合","眼影","眼線類產品","假睫毛","睫毛膏","眉彩類產品","雙眼皮貼","唇彩類產品","唇部保養","其他專櫃彩妝"]);
+                                    makeup[i++]=new node("香水、香氛", ["試管女香、小香","女性香水","試管男香、小香","男性香水","香水禮盒","體香膏","精油","香氛組合、禮盒","其他"]);
+                                    makeup[i++]=new node("手足保養、美甲", ["護手霜、保養品","指甲油、指緣油","光療指甲油","美甲工具","足膜","其他"]);
+                                    makeup[i++]=new node("美髮護理", ["洗髮精","護髮調理","頭皮調理","造型用品","染髮劑","其他"]);
+                                    makeup[i++]=new node("身體清潔、保養", ["沐浴乳","香皂、手工皂","去角質","乳液、乳霜","防曬相關","除毛產品","其他身體清潔"]);
+                                    makeup[i++]=new node("保健食品、營養品", ["機能保健食品","營養補充品、維他命","其他","窈窕順暢食品","美肌保健食品","女性保健食品","男性保健食品","運動保健食品"]);
+                                    makeup[i++]=new node("私密清潔保養", ["清潔護理","女性生理用品","保險套","其他"]);
+                                    makeup[i++]=new node("男士保養", ["男士臉部保養","男士身體保養","其他保養"]);
+                                    makeup[i++]=new node("美容工具", ["離子夾、電捲棒","刷具","海綿、粉撲","其他美容工具","梳子","化妝鏡","化妝品收納"]);
+                                    makeup[i++]=new node("其他", ["其他"]);
+                                    makeup[i++]=new node("醫療護理", ["其他","日常護理","檢測試紙、器具","乙類成藥","舒緩按摩","隱形眼鏡清潔"]);
+                                    // 嬰幼童與母親
+                                    var baby_mon=new Array();
+                                    var i=0;
+                                    baby_mon[i++]=new node("嬰幼兒裝與配件", ["包屁衣","包巾","口水巾","上衣","褲子","外套、斗篷","洋裝、裙子","其他","帽子","彌月禮"]);
+                                    baby_mon[i++]=new node("嬰兒鞋、襪", ["嬰兒鞋","嬰兒襪","學步鞋","其他鞋襪"]);
+                                    baby_mon[i++]=new node("男童童裝", ["外套","T恤","長褲","內衣褲","其他","無袖背心","長袖上衣","其他上衣","短褲","牛仔褲","其他褲款","睡衣","西裝","泳褲、泳具","造型服飾"]);
+                                    baby_mon[i++]=new node("男童配件", ["帽子","涼鞋、拖鞋","球鞋、布鞋","其他","襪子","書包","雨具"]);
+                                    baby_mon[i++]=new node("女童童裝", ["棉質外套","小洋裝","T恤","長褲","裙子","內衣褲","其他","無袖背心","長袖上衣","其他上衣","短褲","牛仔褲","其他褲款","睡衣","風衣外套","泳衣、泳具","造型服飾","背心、羽絨外套","其他外套"]);
+                                    baby_mon[i++]=new node("女童配件", ["帽子","手套","髮飾","涼鞋、拖鞋","其他","球鞋、布鞋","其他鞋款","襪子","書包","小包包","雨具"]);
+                                    baby_mon[i++]=new node("孕婦裝及用品", ["上衣/洋裝","孕婦內衣褲","哺乳衣","哺乳內衣","束腹帶","產後保養","其他","褲裝","孕補食品","孕期保養"]);
+                                    baby_mon[i++]=new node("兒童玩具", ["其他益智玩具","故事書","填充絨毛玩具","兒童騎乘類玩具","其他嬰兒玩具","其他","繪畫用具","樂器","娃娃/家家酒","交通造型玩具","積木","樂高","英文教育","有聲書","學步車","棋類/桌遊","洗澡玩具","布書/觸摸書","手搖鈴/音樂鈴","固齒器","安撫巾/玩偶","拼圖","大型玩具"]);
+                                    baby_mon[i++]=new node("哺育用品", ["學習餐具","水瓶","水壺、學習杯","吸乳器","母乳袋","溫奶器","奶粉","奶瓶消毒鍋","其他","奶瓶刷/奶瓶清潔","奶粉盒/分裝盒","用餐椅","圍兜","副食品相關","餅乾/飲品","奶嘴","奶瓶","孩童保健食品"]);
+                                    baby_mon[i++]=new node("清潔護理", ["沐浴、洗髮","爽身粉","乳液","濕紙巾","其他","紙尿褲","洗手乳","洗澡用具","浴巾","學習便器","指甲/頭髮護理","成人紙尿褲"]);
+                                    baby_mon[i++]=new node("外出用品", ["媽媽包","手推車","汽車安全座椅","其他","防走失用品","背巾、背帶","手推車配件","汽車座椅配件","防蚊用品"]);
+                                    baby_mon[i++]=new node("嬰幼童家具、寢具", ["嬰兒床","嬰兒枕","嬰兒被、防踢被","睡袋","其他","遊戲床","蚊帳","毛毯/肚圍","床包","收納用品"]);
+                                    baby_mon[i++]=new node("嬰幼兒居家防護", ["遊戲地墊","安全鎖","防撞條","其他","床圍/床護欄"]);
+                                    baby_mon[i++]=new node("其他", ["其他"]);
+                                    // 美食、伴手禮
+                                    var food=new Array();
+                                    var i=0;
+                                    food[i++]=new node("熟食、小吃", ["滷味","料理包、調理包","火鍋湯底","其他熟食、小吃","在地小吃、特產","丸餃、湯圓、港點","加熱即食品","代買代購"]);
+                                    food[i++]=new node("生鮮食品", ["海鮮","肉品、肉製品","鮮果、蔬菜","其他生鮮食品","起司、乳製品"]);
+                                    food[i++]=new node("蛋糕、甜點", ["傳統糕餅點心","布丁、奶酪","手工餅乾","甜點","冰品、冰淇淋","其他蛋糕、甜點","蛋糕","麵包、吐司","代買代購"]);
+                                    food[i++]=new node("休閒零食", ["傳統零食","果乾、堅果","其他休閒零食","肉乾、肉鬆、海味","糖果、巧克力","餅乾、洋芋片、爆米花","代買代購"]);
+                                    food[i++]=new node("飲料、沖泡品", ["瓶罐裝飲料","茶葉、茶包","鮮奶、成人奶粉、豆類飲品","果汁、果醋","咖啡","碳酸氣泡飲料","黑糖、蜂蜜","麥片、穀物","沖泡飲品","其他飲料、沖泡品","飲用水、氣泡水","甜品、養身飲品","代買代購"]);
+                                    food[i++]=new node("烘焙食材、南北雜貨", ["罐頭、醃漬品","果醬、抹醬","其他烘焙食材、南北雜貨","烘焙材料粉","豆類、五穀雜糧","脫水乾貨","醬料、調味料","食用油","代買代購"]);
+                                    food[i++]=new node("其他", ["其他"]);
+                                    food[i++]=new node("米、麵食", ["其他米、麵食","食用米","即食泡麵","拌麵、快煮麵","義大利麵","代買代購"]);
+                                    food[i++]=new node("進口零食", ["其他進口零食","日本零食","韓國零食","東南亞零食","歐美零食","代買代購"]);
+                                    food[i++]=new node("美食外送", ["Default","飲料、冰品","咖啡、下午茶","日式料理","韓式料理","港式料理","中式料理","其它異國料理","義法料理","素食料理","星馬料理","美墨料理","麵包甜點","披薩、速食料理","早午餐","泰越料理","便當","小吃、滷味","低卡健康餐","鍋物、燒烤"]);
+                                    //寵物
+                                    var pet=new Array();
+                                    var i=0;
+                                    pet[i++]=new node("寵物零食", ["潔牙骨","餅乾","貓零食","其他","狗零食","天然零食","肉泥","貓草/木天蓼","起司/牛奶類點心"]);
+                                    pet[i++]=new node("狗飼料", ["齒輪油","狗副食罐/餐包","幼犬飼料","成犬飼料","高齡犬飼料","其他狗飼料","鮮食/生食","處方狗飼料","處方保健狗罐","狗主食罐","免運費飼料"]);
+                                    pet[i++]=new node("貓飼料", ["齒輪油","貓副食罐/餐包","幼貓飼料","成貓飼料","其他貓飼料","鮮食/生食","貓主食罐","處方保健貓罐","處方貓飼料","熟齡貓飼料"]);
+                                    pet[i++]=new node("其他寵物食品", ["兩棲、爬蟲飼料","其他"]);
+                                    pet[i++]=new node("寵物服飾", ["狗衣服","貓衣服","寵物配件","其他"]);
+                                    pet[i++]=new node("寵物用品", ["狗屋","貓砂盆、貓砂","貓抓板、跳台","睡窩","籠子","餵食容器","清潔美容","除蚤用品","理毛器具","尿布","鼠用品","兔用品","其他"]);
+                                    pet[i++]=new node("寵物玩具", ["貓咪玩具","狗狗玩具","其他玩具"]);
+                                    pet[i++]=new node("外出用品", ["寵物推車","項圈、牽繩","外出提籠","其他寵物外出用品","寵物背包","胸背帶"]);
+                                    pet[i++]=new node("水族相關", ["馬達","魚缸","水草","釣餌/飼料","過濾設備","其他水族用品","溫度設備","燈座與燈管","水質試劑","氣閥/壓力表/鋼瓶","空氣幫浦","造景裝飾","魚缸清潔用具"]);
+                                    pet[i++]=new node("其他", ["其他"]);
+                                    pet[i++]=new node("寵物營養保健品", ["其他","化毛膏","免疫力提升","視力保健","骨骼關節","腸胃保健","皮毛保健","泌尿系統保健","口腔保健"]);
+                                    pet[i++]=new node("鼠兔相關", ["其他","兔飼料","鼠飼料","牧草/牧磚","點心零食/果乾","便盆/睡窩","木屑/砂","季節用品","鼠兔玩具","鼠兔籠子","鼠兔外出用品","其他鼠兔用品"]);
+                                    pet[i++]=new node("鳥類相關", ["其他","鳥用品","鳥玩具","鳥飼料"]);
+                                    // 汽機車零件百貨
+                                    var car_motor=new Array();
+                                    var i=0;
+                                    car_motor[i++]=new node("汽車與零組件", ["車燈","剎車系統","引擎系統","避震系統","方向盤","雨刷","其他汽車零件","車用電瓶","車用濾芯"]);
+                                    car_motor[i++]=new node("汽車百貨", ["手機支架","鑰匙相關","遮陽隔熱","USB車充、點煙器","影音設備","置物","兒童座椅","車用藍芽","車罩","後照鏡","腳踏墊","車用空氣清淨機、芬香劑","其他汽車百貨","防盜器材","座椅 & 靠墊"]);
+                                    car_motor[i++]=new node("機車與零組件", ["燈罩&燈泡","剎車系統","後照鏡","排氣管","傳動系統","避震系統","其他機車零組件","車體、車殼","電系零件","車用濾芯","機車用電瓶"]);
+                                    car_motor[i++]=new node("機車百貨", ["置物箱、油箱包","手機支架","藍芽通訊設備","鑰匙圈、皮套","車罩","踏墊","其他機車百貨","防盜器材"]);
+                                    car_motor[i++]=new node("機車騎士用品", ["全罩安全帽","半罩安全帽","手套","雨衣","騎士服","口罩","其他騎士用品","安全帽袋"]);
+                                    car_motor[i++]=new node("導航、行車紀錄器", ["汽車行車紀錄器","機車行車紀錄器","GPS導航","行車紀錄器配件","GPS導航配件","抬頭顯示器","GPS測速器","無線電設備"]);
+                                    car_motor[i++]=new node("汽機車美容用品", ["洗車蠟","海綿、布、清潔刷","車用吸塵器","其他清潔用品","玻璃清潔 & 撥水劑","內裝清潔保養","電動/氣動美容工具","胎框清潔劑","鍍膜封體劑"]);
+                                    car_motor[i++]=new node("車身標誌、貼紙", ["車內裝飾","標誌、貼紙","其他"]);
+                                    car_motor[i++]=new node("汽車", ["四門房車、掀背車","雙門跑車、敞篷車","休旅車","商用車、貨車","其他"]);
+                                    car_motor[i++]=new node("機車", ["重型機車","大型重型機車","電動機車","其他"]);
+                                    car_motor[i++]=new node("輪胎&輪框", ["汽車輪胎&輪框","機車輪胎&輪框","胎壓偵測器"]);
+                                    car_motor[i++]=new node("維修工具", ["其他維修工具","電動工具","手工具","氣動工具","汽機車診斷工具","電瓶充電器"]);
+                                    car_motor[i++]=new node("汽車影音設備", ["其他","車用螢幕","汽車音響主機","車用喇叭"]);
+                                    car_motor[i++]=new node("油品", ["齒輪油","變速箱油","汽車機油","機車機油","其他","煞車油","汽油精"]);
+                                    //其他類別
+                                    var other=new Array();
+                                    var i=0;
+                                    other[i++]=new node("客製商品", ["情人專屬","客製貼紙","手工卡片","手工飾品","專屬賣場","其他"]);
+                                    other[i++]=new node("派對小物", ["生日派對","結婚派對","整人玩具","變裝派對","節慶派對","其他"]);
+                                    other[i++]=new node("成人專區", ["情趣內衣","情趣精品","充氣娃娃","按摩棒","跳蛋","潤滑液","其他"]);
+                                    other[i++]=new node("點數貼紙", ["其他"]);
+                                    other[i++]=new node("其他", ["其他"]);
+                                    // 英語歌手
+                                    var book=new Array();
+                                    var i=0;
+                                    book[i++]=new node("教科參考書", [""]);
+                                    book[i++]=new node("雜誌期刊", [""]);
+                                    book[i++]=new node("文學小說", [""]);
+                                    book[i++]=new node("旅遊相關書籍", [""]);
+                                    book[i++]=new node("語言學習書籍", [""]);
+                                    book[i++]=new node("漫畫", [""]);
+                                    book[i++]=new node("其他書籍", [""]);
+                                    book[i++]=new node("輕小說", [""]);
+                                    book[i++]=new node("電腦資訊書籍", [""]);
+                                    book[i++]=new node("宗教命理書籍", [""]);
+                                    book[i++]=new node("醫療保健書籍", [""]);
+                                    book[i++]=new node("親子教養書籍", [""]);
+                                    book[i++]=new node("藝術設計書籍", [""]);
+                                    book[i++]=new node("自然科普書籍", [""]);
+                                    book[i++]=new node("社會人文書籍", [""]);
+                                    book[i++]=new node("生活風格書籍", [""]);
+                                    book[i++]=new node("商業理財書籍", [""]);
+                                    book[i++]=new node("心理勵志書籍", [""]);
+                                    book[i++]=new node("限制級書刊", [""]);
+                                    book[i++]=new node("文化創意周邊", ["其他","文具","配件","包包","設計雜物","衣服","數位文創商品","設計師玩具"]);
+
+                                    // 語言類別
+                                    var output=new Array();
+                                    var i=0;
+                                    output[i++]=new node("女生衣著", girl_cloth);
+                                    output[i++]=new node("女生包包/精品", girl_bag);
+                                    output[i++]=new node("女生配件", girl_fitting);
+                                    output[i++]=new node("女鞋", girl_shoes);
+                                    output[i++]=new node("男生衣著", man_cloth);
+                                    output[i++]=new node("男生包包與配件", man_bag);
+                                    output[i++]=new node("男鞋", man_shoes);
+                                    output[i++]=new node("3C與筆電", laptop);
+                                    output[i++]=new node("手機平板與周邊", phone);
+                                    output[i++]=new node("居家生活", homelife);
+                                    output[i++]=new node("家電影音", homevideo);
+                                    output[i++]=new node("遊戲王", game);
+                                    output[i++]=new node("娛樂、收藏", entertainment);
+                                    output[i++]=new node("戶外與運動用品", sport);
+                                    output[i++]=new node("服務、票券", service_ticket);
+                                    output[i++]=new node("美妝保健", makeup);
+                                    output[i++]=new node("嬰幼童與母親", baby_mon);
+                                    output[i++]=new node("美食、伴手禮", food);
+                                    output[i++]=new node("寵物", pet);
+                                    output[i++]=new node("汽機車零件百貨", car_motor);
+                                    output[i++]=new node("其他類別", other);
+                                    output[i++]=new node("書籍及文創商品", book);
+
+
+                                    return(output);
+                                }
+                                dataTree=dataHierarchy();
+
+                                // 第三個欄位被更動後的反應動作
+                                function onChangeColumn3(){
+                                    updatePath();
+                                }
+
+                                // 第二個欄位被更動後的反應動作
+                                function onChangeColumn2(){
+                                    form=document.theForm;
+                                    index1=form.column1.selectedIndex;
+                                    index2=form.column2.selectedIndex;
+                                    index3=form.column3.selectedIndex;
+                                    // Create options for column 3
+                                    for (i=0;i<dataTree[index1].child[index2].child.length;i++)
+                                        form.column3.options[i]=new Option(dataTree[index1].child[index2].child[i], dataTree[index1].child[index2].child[i]);
+                                    form.column3.options.length=dataTree[index1].child[index2].child.length;
+                                    updatePath();
+                                }
+
+                                // 第一個欄位被更動後的反應動作
+                                function onChangeColumn1() {
+                                    form=document.theForm;
+                                    index1=form.column1.selectedIndex;
+                                    index2=form.column2.selectedIndex;
+                                    index3=form.column3.selectedIndex;
+                                    // Create options for column 2
+                                    for (i=0;i<dataTree[index1].child.length;i++)
+                                        form.column2.options[i]=new Option(dataTree[index1].child[i].name, dataTree[index1].child[i].name);
+                                    form.column2.options.length=dataTree[index1].child.length;
+                                    // Clear column 3
+                                    form.column3.options.length=0;
+                                    updatePath();
+                                }
+
+                                // 修改所顯示的路徑
+                                function updatePath(){
+                                    form=document.theForm;
+                                    index1=form.column1.selectedIndex;
+                                    index2=form.column2.selectedIndex;
+                                    index3=form.column3.selectedIndex;
+                                    if ((index1>=0) && (index2>=0) && (index3>=0)) {
+                                        text1=form.column1.options[index1].text;
+                                        text2=form.column2.options[index2].text;
+                                        text3=form.column3.options[index3].text;
+                                        form.path.value=text1+" ==> "+text2+" ==> "+text3;
+                                    } else
+                                        form.path.value="";
+                                }
+                            </script>
+
+                            <form name="theForm">
+                                <div class="row p-2">
+                                    <div class="col-4">
+                                        <select id="hotbiglist" style="width: 100%;" name="column1" size=1 onChange="onChangeColumn1();">
+                                            <script>
+                                            for (i=0; i<dataTree.length; i++)
+                                                document.writeln("<option value=\""+dataTree[i].name+"\">"+dataTree[i].name);
+                                            </script>
+                                        </select>
+                                    </div>
+                                    <div class="col-4">
+                                        <select id="hotmidlist" style="width: 100%;" name="column2" size=1 onChange="onChangeColumn2();"></select>
+                                    </div>
+                                    <div class="col-4">
+                                        <select id="hotsmllist" style="width: 100%;" name="column3" size=1 onChange="onChangeColumn3();"></select>
+                                    </div>
                                 </div>
-                                <div class= "pb-2 pr-2 d-flex">
-                                    <div class="pl-2 pr-1 flex-fill"><button id="search3" class="searchside"></button></div>
-                                    <div class="pl-1 pr-2 w-50"><button class="p-2 delete w-100 border border-dark h-100 collapsed" onclick="deleteClass()">清除選擇</button></div>
-                                </div>
-                                <div class="pl-2 pr-2 accordion h-100" id="accordionExample">
-                                    <div class="card">
-                                        <div class="p-2 cardheader" id="headingOne">
-                                            大類別
-                                        </div>
-                                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                            <div class="cardbody">
-                                                <ul class="cardlist" style="height:350px">
-                                                    <li class="p-1 carditems"><a href="javascript: void(0)" onclick="addClass1()">女生衣著</a></li>
-                                                    <li class="p-1 carditems"><a href="javascript: void(0)" onclick="addClass1()">女生包包/精品</a></li>
-                                                    <li class="p-1 carditems"><a href="javascript: void(0)" onclick="addClass1()">女生配件</a></li>
-                                                    <li class="p-1 carditems"><a href="javascript: void(0)" onclick="addClass1()">女鞋</a></li>
-                                                    <li class="p-1 carditems"><a href="javascript: void(0)" onclick="addClass1()">男生衣著</a></li>
-                                                    <li class="p-1 carditems"><a href="javascript: void(0)" onclick="addClass1()">男生包包與配件</a></li>
-                                                    <li class="p-1 carditems"><a href="javascript: void(0)" onclick="addClass1()">男鞋</a></li>
-                                                    <li class="p-1 carditems"><a id="001" href="javascript: void(0)" onclick="addClass1()">3C與筆電</a></li>
-                                                    <li class="p-1 carditems"><a href="javascript: void(0)" onclick="addClass1()">手機平板與周邊</a></li>
-                                                    <li class="p-1 carditems"><a href="javascript: void(0)" onclick="addClass1()">居家生活</a></li>
-                                                    <li class="p-1 carditems"><a href="javascript: void(0)" onclick="addClass1()">家電影音</a></li>
-                                                    <li class="p-1 carditems"><a href="javascript: void(0)" onclick="addClass1()">遊戲王</a></li>
-                                                    <li class="p-1 carditems"><a href="javascript: void(0)" onclick="addClass1()">娛樂、收藏</a></li>
-                                                    <li class="p-1 carditems"><a href="javascript: void(0)" onclick="addClass1()">戶外與運動用品</a></li>
-                                                    <li class="p-1 carditems"><a href="javascript: void(0)" onclick="addClass1()">服務、票券</a></li>
-                                                    <li class="p-1 carditems"><a href="javascript: void(0)" onclick="addClass1()">美妝保健</a></li>
-                                                    <li class="p-1 carditems"><a href="javascript: void(0)" onclick="addClass1()">嬰幼童與母親</a></li>
-                                                    <li class="p-1 carditems"><a href="javascript: void(0)" onclick="addClass1()">美食、伴手禮</a></li>
-                                                    <li class="p-1 carditems"><a href="javascript: void(0)" onclick="addClass1()">寵物</a></li>
-                                                    <li class="p-1 carditems"><a href="javascript: void(0)" onclick="addClass1()">汽機車零件百貨</a></li>
-                                                    <li class="p-1 carditems"><a href="javascript: void(0)" onclick="addClass1()">書籍及文創商品</a></li>
-                                                    <li class="p-1 carditems"><a href="javascript: void(0)" onclick="addClass1()">其他類別</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card">
-                                        <div class="p-2 cardheader" id="headingTwo">
-                                            中類別
-                                        </div>
-                                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                                            <div class="cardbody">
-                                                <ul class="cardlist">
-                                                    <li class="p-1 carditems"><a href="javascript: void(0)" onclick="addClass2()">筆記型電腦</a></li>
-                                                    <li class="p-1 carditems"><a href="javascript: void(0)" onclick="addClass2()">電腦零組件</a></li>
-                                                    <li class="p-1 carditems"><a id="002" href="javascript: void(0)" onclick="addClass2()">鍵盤滑鼠</a></li>
-                                                    <li class="p-1 carditems"><a href="javascript: void(0)" onclick="addClass2()">電腦周邊配件</a></li>
-                                                    <li class="p-1 carditems"><a href="javascript: void(0)" onclick="addClass2()">儲存裝置</a></li>
-                                                    <li class="p-1 carditems"><a href="javascript: void(0)" onclick="addClass2()">相機</a></li>
-                                                    <li class="p-1 carditems"><a href="javascript: void(0)" onclick="addClass2()">相機周邊配件</a></li>
-                                                    <li class="p-1 carditems"><a href="javascript: void(0)" onclick="addClass2()">單眼/專業相機</a></li>
-                                                    <li class="p-1 carditems"><a href="javascript: void(0)" onclick="addClass2()">鏡頭</a></li>
-                                                    <li class="p-1 carditems"><a href="javascript: void(0)" onclick="addClass2()">穿戴/智能裝置</a></li>
-                                                    <li class="p-1 carditems"><a href="javascript: void(0)" onclick="addClass2()">耳機/喇叭/麥克風</a></li>
-                                                    <li class="p-1 carditems"><a href="javascript: void(0)" onclick="addClass2()">其他</a></li>
-                                                    <li class="p-1 carditems"><a href="javascript: void(0)" onclick="addClass2()">螢幕顯示器</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card">
-                                        <div class="p-2 cardheader" id="headingThree">
-                                            小類別
-                                        </div>
-                                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-                                            <div class="cardbody">
-                                                <ul class="cardlist">
-                                                    <li class="p-1 carditems"><a href="javascript: void(0)">有線滑鼠</a></li>
-                                                    <li class="p-1 carditems"><a id="003" href="javascript: void(0)" onclick="addClass3()">有線鍵盤</a></li>
-                                                    <li class="p-1 carditems"><a href="javascript: void(0)">鍵盤滑鼠組</a></li>
-                                                    <li class="p-1 carditems"><a href="javascript: void(0)">無線滑鼠</a></li>
-                                                    <li class="p-1 carditems"><a href="javascript: void(0)">無線鍵盤</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
+                            </form>
+                            <div class="" style="">
+                                <div class="p-2" id = "word_change"  style="writing-mode: vertical-lr;position: absolute;height: 70%;text-align: center;">商品銷量</div>
+                                <div data-spy="scroll" data-offset="0" class="scrollspy-example border rounded m-2 shadow-sm" style="height: 460px">
+                                    <div id="hotchart1" class="p-2" style="width:2000px;height: 420px">
+                                        <canvas id="sold_chart"  style="width:2000px;height: 420px"></canvas>
+                                        <canvas id="avg_sold_chart"  style="width:2000px;height: 420px;display: none"></canvas>
+                                        <canvas id="seller_chart"  style="width:2000px;height: 420px;display: none"></canvas>
+                                     </div>
+                                    <div class="p-2" style="position: absolute;bottom: 30px;left: 25%;width: 50%;text-align: center">商品排序</div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-8 pl-3 pr-3 ">
-                            <!--圖表-->
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="block_2">
-                                        <div class="charttitle p-2 w-100">綜合類別</div>
-                                        <div>
-                                            <div class="p-2" style="writing-mode: vertical-lr;position: absolute;height: 85%;text-align: center;">商品銷量</div>
-                                            <div data-spy="scroll" data-offset="0" class="scrollspy-example" style="height: 493px">
-                                                <div id="hotchart1" class="p-2" style="width:1878px;height: 467px"><canvas id="HotChart1"  style="width:1878px;height: 467px"></canvas></div>
-                                                <div id="hotchart2" class="p-2" style="display:none;width:1878px;height: 467px"><canvas id="HotChart2"  style="width:1878px;height: 467px"></canvas></div>
-                                                <div id="hotchart3" class="p-2" style="display:none;width:1878px;height: 467px"><canvas id="HotChart3"  style="width:1878px;height: 467px"></canvas></div>
-                                                <div id="hotchart4" class="p-2" style="display:none;width:1878px;height: 467px"><canvas id="HotChart4"  style="width:1878px;height: 467px"></canvas></div>
-                                            </div>
-                                            <div class="p-2" style="position: absolute;bottom: 15px;left: 25%;width: 50%;text-align: center">商品排序</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 mt-3">
-                                    <div class="bg-white d-flex justify-content-around p-2">
-                                        <label class="radio-inline p-2"><input type="radio" name="optradio" checked>銷量排行</label>
-                                        <label class="radio-inline p-2"><input type="radio" name="optradio">平均賣家銷量</label>
-                                        <label class="radio-inline p-2"><input type="radio" name="optradio">賣家數量</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--商品清單-->
-                        <div class="col-xl-12 mt-5 mb-4">
-                            <div class="listtitle p-2 w-100">商品清單</div>
-                            <div class="bg-white p-3">
+                        
+                    </div>
+                    <!--商品清單-->
+                    <div class="col-xl-12 mt-4 mb-4">
+                        <div class="card shadow">
+                            <div class="title w-100 p-2 d-flex"><div class="rounded bg-owncolor chartdiv">&nbsp;</div>商品清單</div>
+                            <div class="p-3">
                                 <table id="table" class="table table-striped table-bordered table" style="width:100%">
                                     <thead>
                                         <tr>
@@ -428,28 +681,23 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                            </div>        
-                        </div>
+                            </div>
+                        </div>        
                     </div>
                 </div>
             </div>
         </div>
-	<!-- jQuery CDN - Slim version (=without AJAX) -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- 背景svg -->
+    {% include 'bg.html'%}
     <!-- Popper.JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-    <!-- jQuery Custom Scroller CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
     <!-- Bootstrap JS -->
-    <script src="{%static 'bootstrap/scripts/bootstrap.min.js'%}"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-    <!--Sweetalert2 JS-->
-    <script src="{% static 'scripts/sweetalert2/dist/sweetalert2.min.css'%}"></script>
     <!--DataTable JS-->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
-
+    <!--Sweetalert2 JS-->
+    <script src="{% static 'sweetalert2/dist/sweetalert2.min.js'%}"></script>
     <script src="{% static 'scripts/sidebar.js' %}"></script>
     <script src="{% static 'scripts/hotsupplies.js' %}"></script>
 	</body>

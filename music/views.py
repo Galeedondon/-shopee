@@ -17,9 +17,11 @@ from django.contrib import messages
 import tkinter.messagebox
 from tkinter import *
 from django.views.decorators.csrf import csrf_exempt
-from apyori import apriori
+
 
 # Create your views here.
+
+
 
 def index(request):
     if request.user.is_authenticated:
@@ -64,6 +66,13 @@ def suppliescmb(request):
 
 
 @login_required
+def cmb(request):
+    return render(request, 'cmb.html', {
+
+    })
+
+
+@login_required
 def magicprice(request):
     return render(request, 'magicprice.html', {
 
@@ -92,34 +101,104 @@ def history(request):
 
 
 @login_required
+def search(request):
+    return render(request, 'search.html', {
+
+    })
+
+
+@login_required
 def hotsupplies(request):
     try:
+
         # category = ProductRough.objects.last()  # 讀取第一筆資料
         all_data = {}
         item_list = []
+        data_sold = []
+        data_itemid = []
+        data_shopid = []
+        data_seller = []
+        data_avg = []
+        data_name = []
+        data_image = []
 
-        index = 1
+
         query = ProductDetail.objects.all().order_by('-historical_sold')[0:20]
         for a in query:
             item_list.append(a.itemid)
 
-            all_data[index] = {}
-            all_data[index]['historical_sold'] = a.historical_sold
-            all_data[index]['itemid'] = a.itemid
-            all_data[index]['shopid'] = a.shopid
-            all_data[index]['seller'] = int(int(a.shopid) / 100000)
+            data_sold += [a.historical_sold]
+            data_itemid += [a.itemid]
+            data_shopid += [a.shopid]
+            data_seller += [int(int(a.shopid) / 100000)]
             b = int(int(a.shopid) / 100000)
-            all_data[index]['avg'] = int(int(a.historical_sold) / b)
+            data_avg += [int(int(a.historical_sold) / b)]
 
-            index += 1
 
-        index = 1
         for id1 in item_list:
             query1 = ProductRough.objects.get(itemid=id1)
-            all_data[index]['name'] = emoji.emojize(query1.name)
-            all_data[index]['image'] = query1.images[2:34]
-            index += 1
+            data_name += [emoji.emojize(query1.name)]
+            data_image = [query1.images[2:34]]
 
+
+
+
+            """
+        #歷史銷售量排序
+        unit2 = ProductDetail.objects.all().order_by('historical_sold')[0:20]
+        search_data = {}
+        index_ = 1
+        sold_data = list()
+        data_price = []
+        data_sold = []
+        data_seller = []
+        data_name = []
+
+        unit2_item = []
+
+        for q in unit2:
+
+            unit = ProductRough.objects.get(itemid=q.itemid)
+            unit2_item += [unit]
+
+        unit3 = len(unit2_item)
+
+        for i in unit3:
+
+            seller_data = 1
+            unit4 = ProductDetail.objects.get(itemid=i.itemid)
+            sold = unit4.historical_sold
+            search_data[index_] = {}
+            search_data[index_]['search_name'] = i.name
+            search_data[index_]['search_image'] = i.images[2:34]
+            search_data[index_]['search_price'] = int(int(i.price) / 100000)
+
+            if int(int(i.price) / 100000) in sold_data:
+                p = list.index(int(int(i.price) / 100000))
+                # 賣家加總後放回陣列
+                seller = int(sold_data[int(int(i.price) / 100000)][2])
+                seller += 1
+                sold_data[int(int(i.price) / 100000)][2] = seller
+
+                continue
+            else:
+                a = list()
+                a.append(int(int(i.price) / 100000))
+                a.append(sold)
+                a.append(seller_data)
+                a.append(i.name)
+                sold_data.append(a)
+
+            index_ += 1
+
+        sold_data.sort(key=lambda x: x[0])
+
+        for j in range(len(sold_data)):
+            data_price += [sold_data[j][0]]
+            data_sold += [sold_data[j][1]]
+            data_seller += [sold_data[j][2]]
+            data_name += [sold_data[j][3]]
+            """
 
     except:
         errormessage = "(讀取錯誤!)"
@@ -148,7 +227,7 @@ def login_login(request):
 
             path = request.GET.get("next") or "/hotsupplies/"
             return redirect(path)
-            # return render(request, 'ranking.html', locals())
+            # return render(request, 'hotsupplies.html', locals())
 
     except:
 
@@ -191,9 +270,10 @@ def logout(request):
     return render(request, 'index.html', locals())
 
 
-@login_required
-def search(request):
+# 搜尋
+def keyword_search(request):
     try:
+
         if request.is_ajax():
             what_search = request.POST.get('what_search', None)
             # getting data from input first_name id
@@ -201,29 +281,120 @@ def search(request):
                 # cheking if first_name have value
 
                 search_data = {}
-                index = 1
+                index_ = 1
+
                 unit2 = ProductRough.objects.filter(name__icontains=what_search)
 
+                sold_data = list()
+
                 for i in unit2:
-                    search_data[index] = {}
-                    search_data[index]['itemid'] = i.itemid
-                    search_data[index]['search_name'] = i.name
-                    search_data[index]['search_image'] = i.images[2:34]
-                    index += 1
+
+                    unit3 = ProductDetail.objects.get(itemid=i.itemid)
+                    sold = unit3.historical_sold
+                    seller_data = 1
+
+                    search_data[index_] = {}
+                    search_data[index_]['search_name'] = i.name
+                    search_data[index_]['search_image'] = i.images[2:34]
+                    search_data[index_]['search_price'] = int(int(i.price) / 100000)
+
+                    if int(int(i.price) / 100000) in sold_data:
+                        p = list.index(int(int(i.price) / 100000))
+                        # 賣家加總後放回陣列
+                        seller = int(sold_data[int(int(i.price) / 100000)][2])
+                        seller += 1
+                        sold_data[int(int(i.price) / 100000)][2] = seller
+
+                        continue
+                    else:
+                        a = list()
+                        a.append(int(int(i.price) / 100000))
+                        a.append(sold)
+                        a.append(seller_data)
+                        sold_data.append(a)
+
+                    index_ += 1
+
+                sold_data.sort(key=lambda x: x[0])
+
+                data_price = []
+                data_sold = []
+                data_seller = []
+
+                for j in range(len(sold_data)):
+                    data_price += [sold_data[j][0]]
+                    data_sold += [sold_data[j][1]]
+                    data_seller += [sold_data[j][2]]
 
                 a = json.dumps(search_data, ensure_ascii=False)
 
                 response = {
-                    'msg': a  # response message
+                    'msg': a,
+                    'keyword': what_search  # response message
                 }
                 return JsonResponse(response)  # return response as JSON
 
-        # return render(request, 'suppliescmb.html', locals())
 
     except:
+        messages.error(request, '查無商品!!!')
+        return render(request, 'search.html', locals())
 
-        # messages.error(request, '查無商品!!!')
-        return render(request, 'suppliescmb.html', locals())
+
+def keyword_search_button(request):
+    try:
+
+        what_search = request.GET.get('what_search', None)  # getting data from input first_name id
+        search_data = {}
+        index_ = 1
+
+        unit2 = ProductRough.objects.filter(name__icontains=what_search)
+
+        sold_data = list()
+
+        for i in unit2:
+
+            unit3 = ProductDetail.objects.get(itemid=i.itemid)
+            sold = unit3.historical_sold
+            seller_data = 1
+
+            search_data[index_] = {}
+            search_data[index_]['search_name'] = i.name
+            search_data[index_]['search_image'] = i.images[2:34]
+            search_data[index_]['search_price'] = int(int(i.price) / 100000)
+
+            if int(int(i.price) / 100000) in sold_data:
+                p = list.index(int(int(i.price) / 100000))
+                # 賣家加總後放回陣列
+                seller = int(sold_data[int(int(i.price) / 100000)][2])
+                seller += 1
+                sold_data[int(int(i.price) / 100000)][2] = seller
+
+                continue
+            else:
+                a = list()
+                a.append(int(int(i.price) / 100000))
+                a.append(sold)
+                a.append(seller_data)
+                sold_data.append(a)
+
+            index_ += 1
+
+        sold_data.sort(key=lambda x: x[0])
+
+        data_price = []
+        data_sold = []
+        data_seller = []
+
+        for j in range(len(sold_data)):
+            data_price += [sold_data[j][0]]
+            data_sold += [sold_data[j][1]]
+            data_seller += [sold_data[j][2]]
+
+        return render(request, 'pricerange.html', locals())
+
+    except:
+        messages.error(request, '查無商品!!!')
+        return render(request, 'search.html', locals())
 
 
 def ajax_posting(request):
@@ -239,9 +410,9 @@ def ajax_posting(request):
 
 
 def ajax_test(request):
-        return render(request, 'ajax_test.html', {
+    return render(request, 'ajax_test.html', {
 
-        })
+    })
 
 
 def related(request):
@@ -308,4 +479,3 @@ def related(request):
     print(related_result)
 
     return render(request, 'suppliescmb.html', locals())
-

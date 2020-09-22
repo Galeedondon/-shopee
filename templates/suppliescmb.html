@@ -11,6 +11,8 @@
         <title>蝦款-商品組合</title>
         <link rel="icon" href="{% static 'images/titleicon.png' %}" type="image/x-icon"/>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+        <!--JQuery-->
+        <script src="{% static 'jquery-3.5.1.min.js'%}"></script>
 
 		<!--Sweetalert2 CSS-->
         <link rel="stylesheet" href="{% static 'sweetalert2/dist/sweetalert2.min.css'%}">
@@ -21,31 +23,22 @@
         <!-- Our Custom CSS -->
         <link rel="stylesheet" href="{% static 'css/all.css' %}">
         <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
-        <link rel="stylesheet" href="{% static 'css/search.css' %}">
         <link rel="stylesheet" href="{% static 'css/suppliescmb.css' %}" type="text/css">
 
 		<!-- Font Awesome JS -->
 		<script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
 		<script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
-        <script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"></script>
     </head>
 
-	<body style="background-image: url('{%static 'images/背景.jpg'%}');overflow-x:hidden;">
-    {{ id }}
-        <div id="content2">
-            <button type="button" id="sidebarCollapse" class="btn btn-info">
-                <i class="fas fa-align-left"></i>
-            </button>
-        </div>
+	<body>
 		<div class="wrapper">
             <!-- Sidebar -->
             <nav id="sidebar">
                 <div class="sidebar-header">
                     <div class="logo" style="background-image: url('{% static 'images/logo.png' %}')"></div>
                 </div>
-                <div class="border-top"></div>
                 <ul class="list-unstyled components">
-                    <li class="active">
+                    <li class="pagelist">
                         <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle collapsed"><img class="icon" src="{% static 'images/rank_icon.png' %}">排行</a>
                         <ul class="list-unstyled collapse" id="homeSubmenu1">
                             <li>
@@ -56,25 +49,25 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="active">
+                    <li class="pagelist">
                         <a href="#homeSubmenu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><img class="icon" src="{% static 'images/shop.png' %}">組合專區</a>
                         <ul class="list-unstyled collapse show" id="homeSubmenu2">
                             <li class="d-flex">
                                 <div class="form-control w-75" placeholder="空白簽名球" style="border-radius: 0px;">空白簽名球</div>
-                                <button class="btn p-1 pl-2 pr-2" onclick="opnsearch()" style="background-color: #EEEEEE;border-radius:0px;">搜尋</button>
+                                <button class="w-25 btn p-1 pl-2 pr-2" onclick="opnsearch()" style="background-color: #EEEEEE;border-radius:0px;">搜尋</button>
                             </li>
                             <li>
                                 <a href="\pricerange"><img class="icon" src="{% static 'images/sales.png'%}">價錢區間</a>
                             </li>
                             <li>
-                                <a href="\suppliescmb"><img class="icon" src="{% static 'images/combine.png'%}">商品組合</a>
+                                <a href="\suppliescmb" class="visit"><img class="icon" src="{% static 'images/combine.png'%}">商品組合</a>
                             </li>
                             <li>
                                 <a href="\magicprice"><img class="icon" src="{% static 'images/magic.png'%}">魔法定價</a>
                             </li>
                         </ul>
                     </li>
-                    <li class="active">
+                    <li class="pagelist">
                         <a href="#homeSubmenu3" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle collapsed"><img class="icon" src="{% static 'images/user.png' %}">個人專頁</a>
                         <ul class="list-unstyled collapse" id="homeSubmenu3">
                             <li>
@@ -88,167 +81,82 @@
                             </li>
                         </ul>
                     </li>
-
                 </ul>
             </nav>
-        </div>
-        <!-- 搜尋視窗 -->
-        <div id="light" class="white_content">
-            <button class="clssearch" onclick="clssearch()">
-                <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-x-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                    <path fill-rule="evenodd" d="M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z"/>
-                    <path fill-rule="evenodd" d="M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z"/>
-                </svg>
-            </button>
-            <div class="row h-100">
-                <div class="col-6 d-flex h-100 flex-column">
-                    <div class="d-flex flex-wrap form-checkblock mb-2" id="form1">
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" id="check1" value="女生衣著"/>女生衣著</div>
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="女生包包/精品"/>女生包包/精品</div>
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="女生配件"/>女生配件</div>  
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="男生衣著"/>男生衣著</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="男生包包與配件"/>男生包包與配件</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="男鞋"/>男鞋</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="3C與筆電"/>3C與筆電</div>
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="手機平板與周邊"/>手機平板與周邊</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="居家生活"/>居家生活</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="家電影音"/>家電影音</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="遊戲王"/>遊戲王</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="娛樂、收藏"/>娛樂、收藏</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="戶外與運動用品"/>戶外與運動用品</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="服務、票券"/>服務、票券</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="美妝保健"/>美妝保健</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="嬰幼童與母親"/>嬰幼童與母親</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="美食、伴手禮"/>美食、伴手禮</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="寵物"/>寵物</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="汽機車零件百貨"/>汽機車零件百貨</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="書籍及文創商品"/>書籍及文創商品</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="其他類別"/>其他類別</div> 
-                    </div>
-                    <div class="d-flex flex-wrap form-checkblock mb-2" id="form2" style="visibility: hidden;">
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" id="check2" value="女生衣著"/>女生衣著</div>
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="女生包包/精品"/>女生包包/精品</div>
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="女生配件"/>女生配件</div>  
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="男生衣著"/>男生衣著</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="男生包包與配件"/>男生包包與配件</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="男鞋"/>男鞋</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="3C與筆電"/>3C與筆電</div>
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="手機平板與周邊"/>手機平板與周邊</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="居家生活"/>居家生活</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="家電影音"/>家電影音</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="遊戲王"/>遊戲王</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="娛樂、收藏"/>娛樂、收藏</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="戶外與運動用品"/>戶外與運動用品</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="服務、票券"/>服務、票券</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="美妝保健"/>美妝保健</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="嬰幼童與母親"/>嬰幼童與母親</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="美食、伴手禮"/>美食、伴手禮</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="寵物"/>寵物</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="汽機車零件百貨"/>汽機車零件百貨</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="書籍及文創商品"/>書籍及文創商品</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="其他類別"/>其他類別</div> 
-                    </div>
-                    <div class="d-flex flex-wrap form-checkblock " id="form3" style="visibility: hidden;">
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" id="check3" value="女生衣著"/>女生衣著</div>
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="女生包包/精品"/>女生包包/精品</div>
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="女生配件"/>女生配件</div>  
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="男生衣著"/>男生衣著</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="男生包包與配件"/>男生包包與配件</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="男鞋"/>男鞋</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="3C與筆電"/>3C與筆電</div>
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="手機平板與周邊"/>手機平板與周邊</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="居家生活"/>居家生活</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="家電影音"/>家電影音</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="遊戲王"/>遊戲王</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="娛樂、收藏"/>娛樂、收藏</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="戶外與運動用品"/>戶外與運動用品</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="服務、票券"/>服務、票券</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="美妝保健"/>美妝保健</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="嬰幼童與母親"/>嬰幼童與母親</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="美食、伴手禮"/>美食、伴手禮</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="寵物"/>寵物</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="汽機車零件百貨"/>汽機車零件百貨</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="書籍及文創商品"/>書籍及文創商品</div> 
-                        <div class="pr-1 pl-1"><input type="checkbox" class="checkbox m-1" value="其他類別"/>其他類別</div> 
-                    </div>
-                </div>
-                <div class="col-6 h-100">
-                    <div class="p-2" style="background-color: #EEEEEE;">
-                        <div class="d-flex">
-                            <form id="search" method="POST" class="d-flex">
-                                {% csrf_token %}
-                                <input type="text" class="form-control" id="what_search" name="what_search"/>
-                                <input type="submit" class="form-control w-25" style="background-color: #F8B064;"/>
-                            </form>
+            <!-- 搜尋視窗 -->
+            {% include 'search.html'%}
+            <!---->
+            <div id="content" class="container-fluid">
+                <nav class="navbar navbar-expand-lg rounded" >
+                    <div class="container-fluid">
+                        <div class="container-btn">
+                            <button class="animation-button btn" id="sidebarCollapse">
+                                <i class="fas fa-align-left"></i>
+                                <span style="font-size:xx-large">商品組合</span>
+                                <div class="fill-btn"></div>
+                            </button>  
+                        </div>
+                        <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <i class="fas fa-align-justify"></i>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="nav navbar-nav ml-auto">
+                                <li class="nav-item active p-2">
+                                    歡迎 {{ request.user.last_name }}
+                                </li>
+                                <li class="nav-item">
+                                    <form action="/logout" method="get">
+                                        {% csrf_token %}
+                                        <button type="submit" class="form-control logout">登出</button>
+                                    </form>
+                                </li>
+                            </ul>
                         </div>
                     </div>
-                    <div id="search-block" class="search-block p-2 mt-2 flex-nowrap scrollspy-example" data-spy="scroll" data-offset="0">
-
-                        <form action="/related" method="get">
-                            {% csrf_token %}
-                            
-                        </form>
-
-                    <!--
-                        {% for key, values in search_data.items %}
-                            <form action="/related" method="get">
-                            {% csrf_token %}
-                            <button type="submit" class="d-flex flex-fill searchitem p-2 mb-2 align-items-center">
-                                <div class="w-25 searchitem-img mr-2" style="background-image: url('https://cf.shopee.tw/file/{{ values.search_image }}');"></div>
-                                <div class="h-100 w-75 searchitem-name" >{{ values.search_name }}</div>
-
-                                <input style = "display: none" name="{{ values.itemid }}" value = "{{ values.itemid }}"/>
-                            </button>
-                            </form>
-                        {% endfor %}
-                        -->
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="fade" class="black_content"></div> 
-        <!---->
-        <div id="content" class="container-fluid pl-5 pr-5">
-            <!--商品組合-->
-            <div class="row d-flex flex-row content2">
-                <div class="col-12">
-                    <div id="num2" class="p-3 ml-5 mr-5 blocktitle">
-                        商品組合
-                    </div>
-                    <div class="line ml-5 mr-5 justify-content-center"></div>
-                    <div class="row pl-5 pr-5">
-                        <div class="col-xl-7 pr-3">
-                            <div class="block_1">
-                                <div class="charttitle p-2 w-100">搭配購買率</div><div>
-                                    <div class="p-2" style="z-index: 99999;writing-mode: vertical-lr;position: absolute;top: 20%;height: 50%;text-align: center;">關聯比率(%)</div>
-                                        <div data-spy="scroll" data-offset="0" class="scrollspy-example" style="height:573px">
-                                        <div class="p-2" style="width:1100px;height: 537px"><canvas id="cmbChart"  style="width:1100px;height: 547px"></canvas></div>
+                </nav>
+                <!--商品組合-->
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="row">
+                            <div class="col-xl-7">
+                                <div class="block_1 card shadow">
+                                    <div class="title p-2 w-100 d-flex"><div class="rounded bg-owncolor chartdiv">&nbsp;</div>搭配購買率</div><div>
+                                        <div class="p-2" style="writing-mode: vertical-lr;position: absolute;top:40%;left:5px;text-align: center;z-index: 20;">關聯比率(%)</div>
+                                        <div data-spy="scroll" data-offset="0" class="scrollspy-example card shadow-sm m-2" style="height:500px">
+                                            <div class="p-2" style="width:1100px;height: 480px"><canvas id="cmbChart"  style="width:1100px;height: 480px"></canvas></div>
                                         </div>
-                                    <div class="p-2" style="position: absolute;bottom:15px;left: 10%;width: 80%;text-align: center">商品排序</div>
+                                        <div class="p-2" style="position: absolute;bottom:35px;left: 10%;width: 80%;text-align: center">商品排序</div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-5">
+                                <div class="block_1 card shadow">
+                                    <div class="p-2 w-100 d-flex justify-content-between">
+                                        <div class="title d-flex">
+                                            <div class="rounded bg-owncolor chartdiv">&nbsp;</div>
+                                            搭配的商品銷量
+                                        </div>
+                                        <div class="d-flex justify-content-around">
+                                            <label class="rankradio radio-inline p-2"><input type="radio" name="radio2" checked>商品銷量</label>
+                                            <label class="rankradio radio-inline p-2"><input type="radio" name="radio2">賣家數量</label>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="p-2" style=" writing-mode: vertical-lr;position: absolute;top:15px;left:5px;height: 100%; text-align: center;z-index: 20;">商品排序</div>
+                                        <div data-spy="scroll" data-offset="0" class="scrollspy-example card shadow-sm m-2" style="height:500px">
+                                            <div class="p-2" style="width:540px;height: 1000px"><canvas id="cmbsellsChart" height= "460px"></canvas></div>
+                                        </div>
+                                        <div class="p-2" style="position: absolute;top: 70px;left: 7%;width: 86%;text-align: center;">銷售數量</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-5 pr-3">
-                            <div class="block_2">
-                                <div class="charttitle p-2 w-100">搭配的商品銷量</div>
-                                <div>
-                                    <div class="p-2" style=" writing-mode: vertical-lr;position: absolute;top: 15%;height: 70%;width:20px; text-align: center">商品排序</div>
-                                        <div data-spy="scroll" data-offset="0" class="scrollspy-example" style="height:493px">
-                                        <canvas id="cmbsellsChart" height= "600px"></canvas>
-                                        </div>
-                                    <div class="p-2" style="position: absolute;top: 45px;left: 7%;width: 86%;text-align: center">銷售數量</div>
-                                </div>
-                            </div>
-                            <div class="col-12 bg-white d-flex justify-content-around mt-3 p-2">
-                                <label class="radio-inline p-2"><input type="radio" name="radio2" checked>商品銷量</label>
-                                <label class="radio-inline p-2"><input type="radio" name="radio2">賣家數量</label>
-                            </div>
-                        </div>
-
-                        <div class="col-xl-12 mt-5 mb-4">
-                            <div class="listtitle p-2 w-100">商品清單</div>
-                            <div class="bg-white p-3">
+                    </div>
+                    <div class="col-xl-12 mt-4 mb-4">
+                        <div class="card shadow">
+                            <div class="title p-2 w-100 d-flex"><div class="rounded bg-owncolor chartdiv">&nbsp;</div>商品清單</div>
+                            <div class="p-3">
                                 <table id="table" class="table table-striped table-bordered table" style="width:100%">
                                     <thead>
                                         <tr>
@@ -263,18 +171,66 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    {% for key, values in related_result.items %}
                                         <tr>
-                                            <td>{{ key }}</td>
+                                            <td>1</td>
                                             <td>https://cf.shopee.tw/file/e780039d6c49702cc2e97b54732a54bc</td>
-                                            <td>{{ values.name }}</td>
-                                            <td>{{ values.related }}%</td>
+                                            <td>加厚棒球手套</td>
+                                            <td>11%</td>
                                             <td>369</td>
                                             <td>104</td>
                                             <td>連結</td>
                                             <td>搜尋</td>
                                         </tr>
-                                    {% endfor %}
+                                        <tr>
+                                            <td>2</td>
+                                            <td>https://cf.shopee.tw/file/108b8b5f9a4ebdcd9517ee6d863d9372</td>
+                                            <td>11.5反手/正手棒球手套</td>
+                                            <td>6%</td>
+                                            <td>190</td>
+                                            <td>74</td>
+                                            <td>連結</td>
+                                            <td>搜尋</td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>https://cf.shopee.tw/file/5eb1f614e59f67d149c5a2ed9c07ddb5</td>
+                                            <td>經典款黑色手套</td>
+                                            <td>6%</td>
+                                            <td>196</td>
+                                            <td>70</td>
+                                            <td>連結</td>
+                                            <td>搜尋</td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td>https://cf.shopee.tw/file/a9cabfce02642101952abbf961393e36</td>
+                                            <td>高級皮革手套</td>
+                                            <td>5%</td>
+                                            <td>420</td>
+                                            <td>91</td>
+                                            <td>連結</td>
+                                            <td>搜尋</td>
+                                        </tr>
+                                        <tr>
+                                            <td>5</td>
+                                            <td>https://cf.shopee.tw/file/6d65a554fa5eb568979fdd480684582c</td>
+                                            <td>充氣加油棒</td>
+                                            <td>5%</td>
+                                            <td>299</td>
+                                            <td>82</td>
+                                            <td>連結</td>
+                                            <td>搜尋</td>
+                                        </tr>
+                                        <tr>
+                                            <td>6</td>
+                                            <td>https://cf.shopee.tw/file/942177712580182b048893204535eb82</td>
+                                            <td>木棒</td>
+                                            <td>4%</td>
+                                            <td>95</td>
+                                            <td>47</td>
+                                            <td>連結</td>
+                                            <td>搜尋</td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -283,91 +239,21 @@
                 </div>
             </div>
         </div>
-
-	<!-- jQuery CDN - Slim version (=without AJAX) -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <!-- Popper.JS -->
+    <!-- 背景svg -->
+    {% include 'bg.html'%}
+	<!-- Popper.JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <!-- Bootstrap JS -->
-    <script src="{%static 'bootstrap/scripts/bootstrap.min.js'%}"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <script src="{%static 'bootstrap/js/bootstrap.min.js'%}"></script>
     <!--Sweetalert2 JS-->
-    <script src="{% static 'scripts/sweetalert2/dist/sweetalert2.min.css'%}"></script>
-    <!-- jQuery Custom Scroller CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="{% static 'sweetalert2/dist/sweetalert2.min.js'%}"></script>
     <!--DataTable JS-->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
 
     <script src="{% static 'scripts/sidebar.js' %}"></script>
     <script src="{% static 'scripts/suppliescmb.js' %}"></script>
 
-    <script>
-        $('#search').on('submit', function(e){
-
-            e.preventDefault();
-
-            $.ajax({
-                type : "POST",
-                url: "{% url 'search' %}", /* django ajax posting url  */
-                data: {
-                    what_search : $('#what_search').val(),
-                    csrfmiddlewaretoken: '{{ csrf_token }}',
-                    dataType: "json",
-                },
-
-
-                success: function(data){
-
-                    var text = data.msg
-                    let search_result = encodeURIComponent(text);
-                    let obj = JSON.parse(decodeURIComponent(search_result));
-                    var arr = Object.keys(obj);
-
-                    for(var i=1; i<=arr.length; i++)
-                    {
-                        var image_ = "<div class=\"w-25 searchitem-img mr-2\" id=\"image0\" style=\"background-image: url('https://cf.shopee.tw/file/"+obj[i]['search_image']+"');\"></div>";
-                        //document.getElementById('search-block').innerHTML += image_;
-                        var item_name_ = "<div class=\"h-100 w-75 searchitem-name\" id=\"item_name0\">"+obj[i]['search_name']+"</div>";
-
-                        $('#search-block').append('<button type="submit" class="d-flex flex-fill searchitem p-2 mb-2 align-items-center" style="border: none">' +
-                            image_+
-                            '<div class=\"h-100 w-75 searchitem-name\" id=\"item_name0\">'+obj[i]['search_name']+'</div>'
-                        );
-
-                        
-                        //document.getElementById('item_name0').innerHTML += item_name_;
-
-                    }
-
-
-
-
-                    //document.getElementById("image").style.backgroundImage = "url('" + path + obj[1]['search_image'] + "')";
-                    //document.getElementById("item_name").innerHTML = obj[1]['search_name'];
-
-
-
-
-                },
-
-                failure: function() {
-
-                }
-
-            });
-        });
-
-    </script>
-
-    {% if messages %}
-    <script>
-        {% for msg in messages %}
-            alert('{{ msg.message }}');
-        {% endfor %}
-    </script>
-    {% endif %}
 
 	</body>
 

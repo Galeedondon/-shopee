@@ -3,9 +3,10 @@ div.block{
     height: 617px;
 }
 div.block2{
-    border-top: 5px solid #F8B064;
+    background-color: white;
+    border-top: 2px solid #F8B064;
+    height: 400px;
 }
-
 caption{
     caption-side: top;
     color: black;
@@ -13,4 +14,10 @@ caption{
 }
 td.field{
     text-align: right;
+    width: 25%;
+}
+
+.marketurl{
+    margin-top: 10px;
+    cursor: pointer;
 }

@@ -18,8 +18,9 @@ from django.contrib import admin
 from django.urls import path
 
 from music import views
-from music.views import hotsupplies, keywords, pricerange, suppliescmb, magicprice, memberdata, pricerecord, history, index, ajax_posting, ajax_test
-from music.views import login, register, search
+from music.views import hotsupplies, keywords,pricerange,suppliescmb,magicprice,memberdata,pricerecord,history, index, ajax_posting, ajax_test, keyword_search
+from music.views import search
+from music.views import login, register
 from django.conf.urls import *
 
 urlpatterns = [
@@ -35,12 +36,14 @@ urlpatterns = [
     path('index/', index),
     path('login/', login),
     path('register/', register),
-    #url(r'^search/$', views.search),
+    path('search/', search),
+    url(r'^keyword_search_button/$', views.keyword_search_button),
     url(r'^register_register/$', views.register_register),
     url(r'^login_login/$', views.login_login),
     url(r'^logout/$', views.logout),
-    path('ajax_posting/', ajax_posting, name='ajax_posting'),
-    path('search/', search, name='search'),
+    path('keyword_search/', keyword_search, name='keyword_search'),
+    path('ajax-posting/', ajax_posting, name='ajax_posting'),
     path('ajax_test/', ajax_test),
     url(r'^related/$', views.related),
+
 ]

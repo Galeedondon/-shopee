@@ -1,11 +1,4 @@
 // 商品組合
-
-function search_id(key) {
-    const nameElement = document.getElementById("id"+key);
-    const id = nameElement.value;
-    window.alert(id);
-}
-
 let cmbChart = document.getElementById('cmbChart').getContext('2d');
 
     // Global Options
@@ -21,22 +14,23 @@ let cmbChart = document.getElementById('cmbChart').getContext('2d');
           label:
               'Population',
           data:[
-              12.66,
+            12.66,
               11.75,
               11.50,
               11.41,
               11.35,
               11.11,
-              6.71,
-              6.52,
-              5.91,
-              5.61,
-              4.55,
+            6.71,
+            6.52,
+            5.91,
+            5.61,
+            4.55,
               4.17,
               3.33,
           ],
-          backgroundColor:'gray',
-          barPercentage:0.5,
+          backgroundColor:'#004e66',
+
+            barPercentage:0.5,
           borderWidth:1,
           borderColor:'#777',
           hoverBorderWidth:3,
@@ -60,12 +54,12 @@ let cmbChart = document.getElementById('cmbChart').getContext('2d');
         layout:{
           padding:{
             left:0,
-            right:40,
+            right:10,
             bottom:0,
-            top:20,
+            top:10,
           },
             margin:{
-              bottom:110,
+              
             },
 
         },
@@ -104,7 +98,7 @@ let cmbsellsChart = document.getElementById('cmbsellsChart').getContext('2d');
               72,
 
           ],
-          backgroundColor:'gray',
+          backgroundColor:'#004e66',
 
             barPercentage:0.5,
           borderWidth:1,
@@ -129,9 +123,9 @@ let cmbsellsChart = document.getElementById('cmbsellsChart').getContext('2d');
         layout:{
           padding:{
             left:30,
-            right:0,
+            right:10,
             bottom:10,
-            top:40,
+            top:20,
           },
             margin:{
               bottom:110,
@@ -177,17 +171,20 @@ $('table.table').DataTable(
     },
 },
 columnDefs: [
-    { targets: 1,
-        "data":"img",
-        render: function(data) {
-            return '<img src="'+data+'" style="height:50px">'   
-        },
-        "width": "8%",
-        "orderable": false,
-    }, 
-    { "width": "22%", "targets": 2},
-    { "width": "13%", "targets": 3},
-    { "width": "13%", "targets": 4},
-    { "width": "13%", "targets": 5}
+  { "width": "8%", "targets": 0},
+  { targets: 1,
+      "data":"img",
+      render: function(data) {
+          return '<img src="'+data+'" style="height:50px">'   
+      },
+      "width": "8%",
+      "orderable": false,
+  }, 
+  { "width": "29%", "orderable": false, "targets": 2},
+  { "width": "13%", "targets": 3},
+  { "width": "13%", "targets": 4},
+  { "width": "13%", "targets": 5},
+  { "width": "8%", "orderable": false, "targets": 6},
+  { "width": "8%", "orderable": false, "targets": 7}
 ]
 })
